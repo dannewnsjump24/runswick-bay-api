@@ -10,7 +10,7 @@ return new class() extends Migration {
     public function up(): void
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->uuid();
+            $table->uuid('id');
             $table->string('name');
             $table->decimal('longitude', 10, 8)->nullable();
             $table->decimal('latitude', 11, 8)->nullable();
