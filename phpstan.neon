@@ -1,0 +1,25 @@
+includes:
+    - ./vendor/jumptwentyfour/laravel-coding-standards/phpstan.neon
+    #- ./vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+
+parameters:
+    level: 8
+    paths:
+        - app
+        - config
+        - routes
+        - database/factories
+    reportUnmatchedIgnoredErrors: true
+    checkMissingIterableValueType: false
+    checkModelProperties: true
+    checkUnusedViews: false
+
+    excludePaths:
+        - tests
+        - vendor
+        - _ide_helper.php
+        - _ide_helper_models.php
+        - .phpstorm.meta.php
+        - node_modules
+
+    ignoreErrors:

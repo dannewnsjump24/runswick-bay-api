@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('locations')->group(function (): void {
+    Route::get('/}', PatchController::class)->name('api.properties.patch');
+    Route::get('/{location}', DeleteController::class)->name('api.properties.delete');
 });

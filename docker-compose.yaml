@@ -1,0 +1,104 @@
+# https://docs.docker.com/compose/compose-file/#/versioning
+version: '3.8'
+
+services:
+  nginx:
+    # https://hub.docker.com/_/nginx
+    container_name: runswick-nginx
+    build: ./docker/nginx
+    depends_on:
+      - php
+    volumes:
+      - ./:/var/www/vhost/:cached
+    working_dir: /var/www/vhost/
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - runswick_network
+
+  php:
+    # https://hub.docker.com/_/php
+    container_name: runswick-php
+    build: ./docker/php
+    environment:
+      PHP_MEMORY_LIMIT: '128M'
+      COMPOSER_MEMORY_LIMIT: '-1'
+    volumes:
+      - ./:/var/www/vhost/:cached
+    working_dir: /var/www/vhost/
+    ports:
+      - '9000:9000'
+    networks:
+      - runswick_network
+
+  mysql:
+    # https://hub.docker.com/r/mysql/mysql-server/
+    container_name: runswick-mysql
+    image: mysql/mysql-server:latest
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'runswick'
+      MYSQL_USER: 'runswick'
+      MYSQL_PASSWORD: 'runswick'
+      MYSQL_ROOT_HOST: '%'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    networks:
+      - runswick_network
+    ports:
+      - "4406:3306"
+
+  redis:
+    image: redis:6.2.5
+    container_name: runswick-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/data:/data
+    restart: always
+    networks:
+      - runswick_network
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: runswick-mailpit
+    platform: linux/amd64
+    networks:
+      - runswick_network
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  horizon:
+    container_name: runswick-horizon
+    image: runswick-horizon
+    build:
+      context: ./docker/php
+    working_dir: /var/www/vhost/
+    user: "www-data:www-data"
+    networks:
+      - runswick_network
+    environment:
+      PHP_MEMORY_LIMIT: '128M'
+      COMPOSER_MEMORY_LIMIT: '-1'
+      QUEUE_CONNECTION: 'redis'
+      REDIS_HOST: 'redis'
+    depends_on:
+      - redis
+    volumes:
+      - ./:/var/www/vhost/:cached
+      - ./docker/php/worker:/etc/supervisor/conf.d
+      - ./docker/php/local/supervisord/logs:/etc/supervisor/logs
+      - ./docker/php/local/supervisord/pid:/etc/supervisor/pid
+      - ./docker/php/local/supervisord/logs/horizon_worker.log:/var/www/vhost/dannewns.co.uk/storage/logs/horizon_worker.log
+    command: [ "/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/horizon.conf", "-u", "www-data", "-l", "/etc/supervisor/logs/supervisord.log", "-j", "/etc/supervisor/pid/supervisord.pid" ]
+
+volumes:
+  runswick-mysql-data-volume:
+
+networks:
+  runswick_network:
+    driver: bridge
