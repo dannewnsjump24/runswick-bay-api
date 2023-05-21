@@ -135,9 +135,6 @@ jobs:
       - name: Copy .env.pipeline file to .env
         run: php -r "file_exists('.env') || copy('.env.pipeline', '.env');"
 
-      - name: Build CSS/JavaScript Files
-        run: npm run build
-
       - name: Run tests with PHPUnit
         run: composer run test:parallel
         env:
