@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Location\LocationController;
+use App\Http\Controllers\Api\Locations\AllController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('locations')->group(function (): void {
-    Route::get('/}', PatchController::class)->name('api.properties.patch');
-    Route::get('/{location}', DeleteController::class)->name('api.properties.delete');
+Route::prefix('locations')->name('api.locations.')->group(function (): void {
+    Route::get('/}', AllController::class)->name('list-all');
+    Route::get('/{location}', LocationController::class)->name('single-location');
 });
