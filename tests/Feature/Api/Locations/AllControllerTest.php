@@ -15,7 +15,7 @@ class AllControllerTest extends TestCase
     /**
      * @test
      */
-    public function all_locations_are_returned()
+    public function all_locations_are_returned(): void
     {
         $this->seed(LocationSeeder::class);
 
