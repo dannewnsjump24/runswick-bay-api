@@ -7,6 +7,7 @@ namespace Tests\Feature\Api\Location;
 use App\Http\Resources\LocationResource;
 use App\Models\Location;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
 use Tests\TestCase;
 
 class LocationControllerTest extends TestCase
@@ -21,18 +22,17 @@ class LocationControllerTest extends TestCase
         $response->assertNotFound();
     }
 
-    public function correct_location_returned_when_one_is_found(): void
+    /** @test */
+    public function correct_location_returned_when_one_is_found_with_no_images(): void
     {
         $location = Location::factory()->create();
 
         $response = $this->get(route('api.locations.single-location', $location->id));
 
-        $locationResource = new LocationResource($location);
-
         $response->assertOk();
+        
+        $response->assertJsonFragment($location->toArray());
 
-        $response->assertJsonCount(1, 'data');
-
-        $response->assertJsonFragment($locationResource->toArray());
+        $response->assertJsonMissing(['images']);
     }
 }
