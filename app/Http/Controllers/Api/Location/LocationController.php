@@ -12,6 +12,8 @@ final class LocationController extends Controller
 {
     public function __invoke(Location $location): LocationResource
     {
+        $location->load('images');
+
         return new LocationResource($location);
     }
 }

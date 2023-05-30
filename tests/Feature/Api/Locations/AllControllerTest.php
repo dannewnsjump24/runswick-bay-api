@@ -25,4 +25,16 @@ class AllControllerTest extends TestCase
 
         $response->assertJsonCount(5, 'data');
     }
+
+    /**
+     * @test
+     */
+    public function no_locations_are_returned_when_none_exist(): void
+    {
+        $response = $this->get('/api/locations');
+
+        $response->assertStatus(Response::HTTP_OK);
+
+        $response->assertJsonCount(0, 'data');
+    }
 }
