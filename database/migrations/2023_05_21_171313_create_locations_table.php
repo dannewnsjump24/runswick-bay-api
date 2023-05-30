@@ -12,7 +12,7 @@ return new class() extends Migration {
         Schema::create('locations', function (Blueprint $table) {
             $table->uuid('id');
             $table->string('name');
-            $table->decimal('longitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
             $table->decimal('latitude', 11, 8)->nullable();
             $table->softDeletes();
             $table->timestamps();
