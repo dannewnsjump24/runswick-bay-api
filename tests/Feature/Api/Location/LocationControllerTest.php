@@ -46,7 +46,7 @@ class LocationControllerTest extends TestCase
     {
         $location = Location::factory()->create();
 
-        $locationImage = LocationImage::factory()->create([
+        LocationImage::factory()->create([
             'location_id' => $location->id
         ]);
 
