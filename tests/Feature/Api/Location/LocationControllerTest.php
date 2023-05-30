@@ -6,6 +6,7 @@ namespace Tests\Feature\Api\Location;
 
 use App\Http\Resources\LocationResource;
 use App\Models\Location;
+use App\Models\LocationImage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Tests\TestCase;
@@ -30,9 +31,25 @@ class LocationControllerTest extends TestCase
         $response = $this->get(route('api.locations.single-location', $location->id));
 
         $response->assertOk();
-        
+
         $response->assertJsonFragment($location->toArray());
 
         $response->assertJsonMissing(['images']);
+    }
+
+    /** @test */
+    public function correct_location_returned_with_images_when_images_are_associated(): void
+    {
+        $location = Location::factory()->create();
+
+        $locationImage = LocationImage::factory()->create(['location_id' => $location->id]);
+
+        $response = $this->get(route('api.locations.single-location', $location->id));
+
+        $response->assertOk();
+
+        $response->assertJsonFragment($location->toArray());
+        
+        $response->assertJsonCount(1, 'data.images');
     }
 }
