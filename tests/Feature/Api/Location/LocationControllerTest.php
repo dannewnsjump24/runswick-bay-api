@@ -47,7 +47,7 @@ class LocationControllerTest extends TestCase
         $location = Location::factory()->create();
 
         LocationImage::factory()->create([
-            'location_id' => $location->id
+            'location_id' => $location->id,
         ]);
 
         $response = $this->get(route('api.locations.single-location', $location->id));

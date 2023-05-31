@@ -27,6 +27,9 @@ class Location extends Model
         'longitude' => 'float',
     ];
 
+    /**
+     * @phpstan-return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\LocationImage>
+     */
     public function images(): HasMany
     {
         return $this->hasMany(LocationImage::class);
