@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Api\Location\LocationController;
+use App\Http\Controllers\Api\Locations\AllController;
+use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +19,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('locations')->group(function (): void {
-    Route::get('/}', PatchController::class)->name('api.properties.patch');
-    Route::get('/{location}', DeleteController::class)->name('api.properties.delete');
+Route::get(
+    '/ping',
+    function (): JsonResponse {
+        return response()->json(
+            [
+                'service' => 'Holiday API',
+                'timestamp' => Carbon::now()->format('Y-m-d H:i:s'),
+            ]
+        );
+    }
+)
+    ->name('api.ping');
+Route::prefix('locations')->name('api.locations.')->group(function (): void {
+    Route::get('/', AllController::class)->name('list-all');
+    Route::get('/{location}', LocationController::class)->name('single-location');
 });

@@ -1,3 +1,3 @@
-CREATE DATABASE IF NOT EXISTS `newbold_testing`;
-USE `newbold_testing`;
-GRANT ALL PRIVILEGES ON `newbold_testing`.* TO 'newbold'@'%';
+CREATE DATABASE IF NOT EXISTS `runswick`;
+USE `runswick`;
+GRANT ALL PRIVILEGES ON `runswick`.* TO 'root'@'%';

@@ -1,0 +1,143 @@
+# GitHub Action for Laravel with MySQL and Redis
+name: Testing Laravel with MySQL
+on:
+  pull_request:
+    branches: [ main, release/**, feature/** ]
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: bcmath, ctype, fileinfo, gd, json, intl, opcache, mbstring, openssl, pdo_mysql, tokenizer, xml, zip
+          coverage: xdebug
+
+  phpstan:
+    name: PHPStan
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: bcmath, ctype, fileinfo, gd, json, intl, opcache, mbstring, openssl, pdo_mysql, tokenizer, xml, zip
+          coverage: xdebug
+
+      - uses: actions/checkout@v3
+      - uses: ramsey/composer-install@v2
+
+      - name: Copy .env.pipeline file to .env
+        run: php -r "file_exists('.env') || copy('.env.pipeline', '.env');"
+
+      - name: PHPStan (Static Analysis Tool)
+        run: composer run stan
+
+  ecs:
+    name: ECS
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: bcmath, ctype, fileinfo, gd, json, intl, opcache, mbstring, openssl, pdo_mysql, tokenizer, xml, zip
+          coverage: xdebug
+      - uses: actions/checkout@v3
+      - uses: ramsey/composer-install@v2
+
+      - name: Copy .env.pipeline file to .env
+        run: php -r "file_exists('.env') || copy('.env.pipeline', '.env');"
+
+      - name: PHP ECS (Easy Coding Standard)
+        run: composer run ecs
+
+  php-lint:
+    name: Lint PHP
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: bcmath, ctype, fileinfo, gd, json, intl, opcache, mbstring, openssl, pdo_mysql, tokenizer, xml, zip
+          coverage: xdebug
+
+      - uses: actions/checkout@v3
+      - uses: ramsey/composer-install@v2
+
+      - name: Copy .env.pipeline file to .env
+        run: php -r "file_exists('.env') || copy('.env.pipeline', '.env');"
+
+      - name: PHP Lint (PHP Parallel Lint)
+        run: composer run lint
+
+  test-php:
+    name: Test PHP
+    needs: build
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: false
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: runswick_testing
+        ports:
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      redis:
+        image: redis
+        ports:
+          - 6379/tcp
+        options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: ['8.2']
+    env:
+      DB_HOST: 127.0.0.1
+      BROADCAST_DRIVER: log
+      CACHE_DRIVER: file
+      QUEUE_CONNECTION: sync
+      SESSION_DRIVER: file
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: bcmath, ctype, fileinfo, gd, json, intl, opcache, mbstring, openssl, pdo_mysql, tokenizer, xml, zip
+          coverage: xdebug
+
+      - uses: actions/checkout@v3
+      - uses: ramsey/composer-install@v2
+      - uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Start mysql service
+        run: sudo /etc/init.d/mysql start
+
+      - name: Copy .env.pipeline file to .env
+        run: php -r "file_exists('.env') || copy('.env.pipeline', '.env');"
+
+      - name: Run tests with PHPUnit
+        run: composer run test:parallel
+        env:
+          REDIS_HOST: redis
+          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+          REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
