@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Api\Auth;
 
-use App\Http\Requests\RegisterUserRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use PHPUnit\Framework\Attributes\Test;
