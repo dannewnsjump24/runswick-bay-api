@@ -4,7 +4,7 @@ version: '3.8'
 services:
   nginx:
     # https://hub.docker.com/_/nginx
-    container_name: runswick-nginx
+    container_name: nginx
     build: ./docker/nginx
     depends_on:
       - php
@@ -15,11 +15,11 @@ services:
       - '80:80'
       - '443:443'
     networks:
-      - runswick_network
+      - wandersnap_network
 
   php:
     # https://hub.docker.com/_/php
-    container_name: runswick-php
+    container_name: php
     build: ./docker/php
     environment:
       PHP_MEMORY_LIMIT: '128M'
@@ -30,11 +30,11 @@ services:
     ports:
       - '9000:9000'
     networks:
-      - runswick_network
+      - wandersnap_network
 
   mysql:
     # https://hub.docker.com/r/mysql/mysql-server/
-    container_name: runswick-mysql
+    container_name: mysql
     image: mysql/mysql-server:latest
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
@@ -47,40 +47,40 @@ services:
       MYSQL_ROOT_HOST: '%'
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     networks:
-      - runswick_network
+      - wandersnap_network
     ports:
       - "4406:3306"
 
   redis:
     image: redis:6.2.5
-    container_name: runswick-redis
+    container_name: redis
     ports:
       - "6379:6379"
     volumes:
       - ./redis/data:/data
     restart: always
     networks:
-      - runswick_network
+      - wandersnap_network
 
   mailpit:
     image: axllent/mailpit
-    container_name: runswick-mailpit
+    container_name: mailpit
     platform: linux/amd64
     networks:
-      - runswick_network
+      - wandersnap_network
     ports:
       - "1025:1025"
       - "8025:8025"
 
   horizon:
-    container_name: runswick-horizon
+    container_name: horizon
     image: runswick-horizon
     build:
       context: ./docker/php
     working_dir: /var/www/vhost/
     user: "www-data:www-data"
     networks:
-      - runswick_network
+      - wandersnap_network
     environment:
       PHP_MEMORY_LIMIT: '128M'
       COMPOSER_MEMORY_LIMIT: '-1'
@@ -97,8 +97,8 @@ services:
     command: [ "/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/horizon.conf", "-u", "www-data", "-l", "/etc/supervisor/logs/supervisord.log", "-j", "/etc/supervisor/pid/supervisord.pid" ]
 
 volumes:
-  runswick-mysql-data-volume:
+  wandersnap_network-mysql-data-volume:
 
 networks:
-  runswick_network:
+  wandersnap_network:
     driver: bridge
