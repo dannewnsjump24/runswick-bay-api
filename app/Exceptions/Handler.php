@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -27,5 +31,38 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
         });
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     * @throws Throwable
+     */
+    public function render($request, Throwable $e)
+    {
+        if ($request->expectsJson() || $this->isApiRoute($request)) {
+            $statusCode = $this->getStatusCode($e);
+
+            return new JsonResponse([
+                'error' => $e->getMessage(),
+                'status_code' => $statusCode,
+            ], $statusCode);
+        }
+
+        return parent::render($request, $e);
+    }
+
+    protected function isApiRoute(Request $request): bool
+    {
+        return $request->is('api/*');
+    }
+
+    protected function getStatusCode(Throwable $exception): int
+    {
+        if ($exception instanceof HttpException) {
+            return $exception->getStatusCode();
+        }
+
+        return Response::HTTP_INTERNAL_SERVER_ERROR;
     }
 }

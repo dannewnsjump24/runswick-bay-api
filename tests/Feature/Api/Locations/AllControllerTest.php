@@ -19,7 +19,7 @@ class AllControllerTest extends TestCase
     {
         $this->seed(LocationSeeder::class);
 
-        $response = $this->get('/api/locations');
+        $response = $this->getJson('/api/locations');
 
         $response->assertStatus(Response::HTTP_OK);
 
@@ -31,7 +31,7 @@ class AllControllerTest extends TestCase
      */
     public function no_locations_are_returned_when_none_exist(): void
     {
-        $response = $this->get('/api/locations');
+        $response = $this->getJson('/api/locations');
 
         $response->assertStatus(Response::HTTP_OK);
 

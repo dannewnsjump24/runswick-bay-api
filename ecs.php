@@ -24,38 +24,19 @@ return static function (ECSConfig $ecsConfig): void {
             __DIR__.'/app/Http/Middleware',
             __DIR__.'/app/Http/Resources',
             __DIR__.'/app/Domain/*/Resources/*.php',
-            __DIR__.'/app/Http/Controllers/*.php',
+            __DIR__.'/app/Exceptions/*.php',
         ],
-        'Unused parameter $model.' => [
-            __DIR__.'/app/Domain/*/Scopes/*.php',
-        ],
-        'Unused parameter $report.' => [
-            __DIR__.'/app/Http/Controllers/Api/Ecosystem/UnFavouritePropertyController.php',
-        ],
-        UnusedParameterSniff::class => [
+        'Unused parameter $schedule.' => [
             __DIR__.'/app/Console/Kernel.php',
+        ],
+        'Unused parameter $e.' => [
             __DIR__.'/app/Exceptions/Handler.php',
-            __DIR__.'/app/Console/Playbooks/ApplicationSetupPlaybook.php',
-        ],
-        'Unused parameter $attribute.' => [
-            __DIR__.'/app/Rules',
-            __DIR__.'/app/Domain/*/Rules/*.php',
-        ],
-        'Unused parameter $attributes.' => [
-            __DIR__.'/app/Rules',
-            __DIR__.'/database/factories/*.php',
-        ],
-        'Unused parameter $failures.' => [
-            __DIR__.'/app/Rules',
-            __DIR__.'/app/Imports/*.php',
-        ],
-        'Unused parameter $batch.' => [
-            __DIR__.'/app/Domain/GlobalData/Commands',
-            __DIR__.'/app/Domain/GlobalData/Jobs',
         ],
         CamelCapsFunctionNameSniff::class => [
             '/tests/**',
-            '/app/Helpers/**',
+        ],
+        'Unused parameter $attributes.' => [
+            __DIR__.'/database/factories/*.php',
         ],
         'SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff.MissingAnyTypeHint' => [
             '/tests/**',
