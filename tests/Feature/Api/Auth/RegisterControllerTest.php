@@ -36,9 +36,9 @@ final class RegisterControllerTest extends TestCase
     #[Test]
     public function it_validates_required_fields_on_registration(): void
     {
-        $response = $this->postJson('/api/register');
+        $response = $this->postJson('/api/auth/register', []);
 
-        $response->assertStatus(422)
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors(['name', 'email', 'password']);
     }
 
@@ -48,13 +48,34 @@ final class RegisterControllerTest extends TestCase
         $userData = [
             'name' => 'John Doe',
             'email' => 'invalid-email',
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
+            'password' => 'secretonemore',
+            'device_name' => 'tester_device',
         ];
 
-        $response = $this->postJson('/api/register', $userData);
+        $response = $this->postJson('/api/auth/register', $userData);
 
-        $response->assertStatus(422)
-            ->assertJsonValidationErrors(['email']);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+            ->assertJsonValidationErrors(['email'])
+            ->assertJsonMissingValidationErrors(['name', 'password']);
+    }
+
+    #[Test]
+    public function it_cannot_register_a_user_who_is_already_registered(): void
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+
+        $userData = [
+            'name' => 'John Doe',
+            'email' => $user->email,
+            'password' => 'morethaneight',
+            'device_name' => 'tester_device',
+        ];
+
+        $response = $this->postJson('/api/auth/register', $userData);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+            ->assertJsonValidationErrors(['email'])
+            ->assertJsonMissingValidationErrors(['name', 'password']);
     }
 }
