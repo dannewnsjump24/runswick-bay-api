@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
+use Exception;
 
 class Handler extends ExceptionHandler
 {
@@ -41,15 +42,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
-        if ($request->expectsJson() && $this->isApiRoute($request) && !$e instanceof ValidationException) {
-            $statusCode = $this->getStatusCode($e);
-
-            return new JsonResponse([
-                'error' => $e->getMessage(),
-                'status_code' => $statusCode,
-            ], $statusCode);
-        }
-
         return parent::render($request, $e);
     }
 
@@ -60,7 +52,7 @@ class Handler extends ExceptionHandler
 
     protected function getStatusCode(Throwable $exception): int
     {
-        if ($exception instanceof HttpException) {
+        if ($exception instanceof Exception) {
             return $exception->getStatusCode();
         }
 

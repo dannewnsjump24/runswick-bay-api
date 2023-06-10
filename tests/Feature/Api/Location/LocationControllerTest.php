@@ -6,7 +6,9 @@ namespace Tests\Feature\Api\Location;
 
 use App\Models\Location;
 use App\Models\LocationImage;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -29,6 +31,8 @@ class LocationControllerTest extends TestCase
     #[Test]
     public function not_found_returned_when_trying_to_access_location_that_doesnt_exist(): void
     {
+        Sanctum::actingAs(User::factory()->create());
+
         $response = $this->getJson(route('api.locations.single-location', 100));
 
         $response->assertNotFound();
@@ -37,6 +41,8 @@ class LocationControllerTest extends TestCase
     #[Test]
     public function correct_location_returned_when_one_is_found_with_no_images(): void
     {
+        Sanctum::actingAs(User::factory()->create());
+
         $location = Location::factory()->create();
 
         $response = $this->getJson(route('api.locations.single-location', $location->id));
@@ -51,6 +57,8 @@ class LocationControllerTest extends TestCase
     #[Test]
     public function correct_location_returned_with_images_when_images_are_associated(): void
     {
+        Sanctum::actingAs(User::factory()->create());
+
         $location = Location::factory()->create();
 
         LocationImage::factory()->create([

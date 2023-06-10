@@ -31,7 +31,7 @@ final class RegisterController extends Controller
         }
 
         return response()->json([
-            'token' => $token,
+            'token' => $token->plainTextToken,
         ], Response::HTTP_CREATED);
     }
 }
