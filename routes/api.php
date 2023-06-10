@@ -36,7 +36,9 @@ Route::get(
 Route::prefix('auth')->name('api.auth.')->group(function (): void {
     Route::post('/register', RegisterController::class)->name('register');
 });
-Route::prefix('locations')->name('api.locations.')->group(function (): void {
+Route::middleware('auth:sanctum')
+    ->prefix('locations')
+    ->name('api.locations.')->group(function (): void {
     Route::get('/', AllController::class)->name('list-all');
     Route::get('/{location}', LocationController::class)->name('single-location');
 });

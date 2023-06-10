@@ -41,9 +41,9 @@ services:
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: 'runswick'
-      MYSQL_USER: 'runswick'
-      MYSQL_PASSWORD: 'runswick'
+      MYSQL_DATABASE: 'wandersnap_api'
+      MYSQL_USER: 'wandersnap_api'
+      MYSQL_PASSWORD: 'wandersnap_api'
       MYSQL_ROOT_HOST: '%'
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     networks:
