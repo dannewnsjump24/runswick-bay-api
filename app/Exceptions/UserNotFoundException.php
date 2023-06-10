@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exceptions;
 
 use Exception;
@@ -9,9 +11,6 @@ use Illuminate\Http\Response;
 
 class UserNotFoundException extends Exception
 {
-    /**
-     * @param \Illuminate\Http\Request $request
-     */
     public function render(Request $request): JsonResponse
     {
         return new JsonResponse(

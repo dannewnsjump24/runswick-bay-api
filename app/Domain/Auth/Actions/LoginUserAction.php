@@ -14,9 +14,6 @@ class LoginUserAction
     }
 
     /**
-     * @param string $email
-     * @param string $password
-     * @return User
      * @throws UserNotFoundException
      */
     public function execute(string $email, string $password): User
@@ -27,7 +24,7 @@ class LoginUserAction
             throw new UserNotFoundException();
         }
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);

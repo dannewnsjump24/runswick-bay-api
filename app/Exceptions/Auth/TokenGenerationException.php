@@ -11,9 +11,6 @@ use Illuminate\Http\Response;
 
 final class TokenGenerationException extends Exception
 {
-    /**
-     * @param \Illuminate\Http\Request $request
-     */
     public function render(Request $request): JsonResponse
     {
         return new JsonResponse(

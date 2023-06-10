@@ -12,7 +12,6 @@ use Illuminate\Http\Response;
 final class UserRegistrationException extends Exception
 {
     /**
-     * @param Request $request
      * @return JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      * @throws Throwable
      */
