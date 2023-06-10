@@ -1,15 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Exceptions\Auth;
+namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-final class TokenGenerationException extends Exception
+class UserNotFoundException extends Exception
 {
     /**
      * @param \Illuminate\Http\Request $request
@@ -18,7 +16,7 @@ final class TokenGenerationException extends Exception
     {
         return new JsonResponse(
             [
-                'error' => 'There was an error registering the user with the provided details',
+                'error' => 'The user could not be found',
                 'status_code' => Response::HTTP_BAD_REQUEST,
             ],
             Response::HTTP_BAD_REQUEST,

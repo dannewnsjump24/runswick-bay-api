@@ -6,6 +6,7 @@ namespace App\Exceptions\Auth;
 
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 final class UserRegistrationException extends Exception
@@ -15,7 +16,7 @@ final class UserRegistrationException extends Exception
      * @return JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      * @throws Throwable
      */
-    public function render($request): JsonResponse
+    public function render(Request $request): JsonResponse
     {
         return response()->json(
             [
