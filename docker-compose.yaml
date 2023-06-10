@@ -4,7 +4,7 @@ version: '3.8'
 services:
   nginx:
     # https://hub.docker.com/_/nginx
-    container_name: nginx
+    container_name: wandersnap_nginx
     build: ./docker/nginx
     depends_on:
       - php
@@ -19,7 +19,7 @@ services:
 
   php:
     # https://hub.docker.com/_/php
-    container_name: php
+    container_name: wandersnap_php
     build: ./docker/php
     environment:
       PHP_MEMORY_LIMIT: '128M'
@@ -34,7 +34,7 @@ services:
 
   mysql:
     # https://hub.docker.com/r/mysql/mysql-server/
-    container_name: mysql
+    container_name: wandersnap_mysql
     image: mysql/mysql-server:latest
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
@@ -53,7 +53,7 @@ services:
 
   redis:
     image: redis:6.2.5
-    container_name: redis
+    container_name: wandersnap_redis
     ports:
       - "6379:6379"
     volumes:
@@ -64,7 +64,7 @@ services:
 
   mailpit:
     image: axllent/mailpit
-    container_name: mailpit
+    container_name: wandersnap_mailpit
     platform: linux/amd64
     networks:
       - wandersnap_network
@@ -73,7 +73,7 @@ services:
       - "8025:8025"
 
   horizon:
-    container_name: horizon
+    container_name: wandersnap_horizon
     image: runswick-horizon
     build:
       context: ./docker/php
