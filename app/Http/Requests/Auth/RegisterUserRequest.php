@@ -13,10 +13,21 @@ class RegisterUserRequest extends FormRequest
     {
         return [
             'name' => [
-                'required|string|max:255',
+                'required',
+                'string',
+                'max:255',
             ],
-            'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|string|min:8',
+            'email' => [
+                'required',
+                'email',
+                'unique:users',
+                'max:255',
+            ],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+            ],
             'device_name' => 'required',
         ];
     }

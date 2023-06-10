@@ -20,9 +20,10 @@ class RegisterUserActionTest extends TestCase
         $registerUserAction = app()->make(RegisterUserAction::class);
 
         $email = $this->faker->email();
+
         $requestData = [
             'email' => $email,
-            'password' => 'password',
+            'password' => 'password1',
         ];
 
         $this->assertDatabaseCount(User::class, 0);
@@ -33,7 +34,6 @@ class RegisterUserActionTest extends TestCase
             User::class,
             [
                 'email' => $email,
-                'password' => '',
             ]
         );
     }

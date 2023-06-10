@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Location\LocationController;
 use App\Http\Controllers\Api\Locations\AllController;
@@ -35,7 +36,7 @@ Route::get(
 
 Route::prefix('auth')->name('api.auth.')->group(function (): void {
     Route::post('/register', RegisterController::class)->name('register');
-    Route::post('/login', RegisterController::class)->name('login');
+    Route::post('/login', LoginController::class)->name('login');
 });
 Route::middleware('auth:sanctum')
     ->prefix('locations')

@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginUserRequest;
 
-class LoginController extends Controller
+final class LoginController extends Controller
 {
-    public function __invoke()
+    public function __invoke(LoginUserRequest $request): void
     {
-
+        dd($request->validated());
     }
 }
