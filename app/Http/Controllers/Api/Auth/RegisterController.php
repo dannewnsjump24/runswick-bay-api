@@ -6,10 +6,9 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 
-class RegisterController extends Controller
+final class RegisterController extends Controller
 {
-    public function __invoke()
+    public function __invoke(): void
     {
-
     }
 }

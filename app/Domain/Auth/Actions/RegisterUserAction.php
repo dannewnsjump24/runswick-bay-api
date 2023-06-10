@@ -14,6 +14,8 @@ class RegisterUserAction
 
     public function execute(array $registrationData): bool
     {
+        $createdUser = $this->user->create($registrationData);
 
+        return $createdUser instanceof User;
     }
 }

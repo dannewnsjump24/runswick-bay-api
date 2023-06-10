@@ -23,13 +23,10 @@ class RegisterUserRequest extends FormRequest
         return true;
     }
 
-
     /**
      * Prepare the data for validation.
-     *
-     * @return void
      */
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         $this->merge([
             'email' => Str::of($this->email)->lower()->toString(),

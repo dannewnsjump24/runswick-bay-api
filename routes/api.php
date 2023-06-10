@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Location\LocationController;
 use App\Http\Controllers\Api\Locations\AllController;
-use App\Http\Controllers\Api\Auth\RegisterController;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
