@@ -8,7 +8,7 @@ use App\Exceptions\UserNotFoundException;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-dok
+
 class LoginUserAction
 {
     public function __construct(protected User $user)
@@ -24,6 +24,7 @@ class LoginUserAction
         $user = $this->user->query()->where('email', '=', $email)->first();
 
         if (!$user instanceof User) {
+            ray('erere');
             throw new UserNotFoundException();
         }
 
