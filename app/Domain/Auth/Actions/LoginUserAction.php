@@ -24,7 +24,6 @@ class LoginUserAction
         $user = $this->user->query()->where('email', '=', $email)->first();
 
         if (!$user instanceof User) {
-            ray('erere');
             throw new UserNotFoundException();
         }
 
