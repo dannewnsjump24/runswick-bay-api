@@ -6,7 +6,9 @@ namespace App\Domain\Auth\Actions;
 
 use App\Exceptions\UserNotFoundException;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
+dok
 class LoginUserAction
 {
     public function __construct(protected User $user)
@@ -15,6 +17,7 @@ class LoginUserAction
 
     /**
      * @throws UserNotFoundException
+     * @throws ValidationException
      */
     public function execute(string $email, string $password): User
     {
@@ -24,10 +27,14 @@ class LoginUserAction
             throw new UserNotFoundException();
         }
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+        if (!Hash::check($password, $user->password)) {
+            throw ValidationException::withMessages(
+                [
+                    'email' => ['The provided credentials are incorrect.'],
+                ]
+            );
         }
+
+        return $user;
     }
 }
