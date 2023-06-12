@@ -19,6 +19,10 @@ class LoginUserRequest extends FormRequest
                 'required',
                 'string',
             ],
+            'device_name' => [
+                'required',
+                'string',
+            ],
         ];
     }
 
