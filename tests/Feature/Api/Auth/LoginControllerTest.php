@@ -30,7 +30,9 @@ final class LoginControllerTest extends TestCase
     #[Test]
     public function it_throws_validation_error_when_actual_user_trying_to_login_with_invalid_password(): void
     {
-        User::factory()->create(['password' => '123sdfdsfdsf3']);
+        User::factory()->create([
+            'password' => '123sdfdsfdsf3'
+        ]);
 
         $postData = RegisterUserRequestFactory::new()->create();
 
