@@ -12,7 +12,6 @@ use Illuminate\Http\Response;
 final class UserRegistrationException extends Exception
 {
     /**
-     * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
     public function render(Request $request): JsonResponse
