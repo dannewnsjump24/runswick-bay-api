@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Location\LocationController;
 use App\Http\Controllers\Api\Locations\AllController;
+use App\Http\Controllers\Api\Trips\StoreController;
 use App\Http\Controllers\Api\PingController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,9 +27,16 @@ Route::prefix('auth')->name('api.auth.')->group(function (): void {
     Route::post('/register', RegisterController::class)->name('register');
     Route::post('/login', LoginController::class)->name('login');
 });
+
 Route::middleware('auth:sanctum')
     ->prefix('locations')
     ->name('api.locations.')->group(function (): void {
         Route::get('/', AllController::class)->name('list-all');
         Route::get('/{location}', LocationController::class)->name('single-location');
+    });
+
+Route::middleware('auth:sanctum')
+    ->prefix('trips')
+    ->name('api.trips.')->group(function (): void {
+        Route::Post('/', StoreController::class)->name('store');
     });

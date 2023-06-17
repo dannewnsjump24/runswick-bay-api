@@ -2,22 +2,19 @@
 
 declare(strict_types=1);
 
-use App\Models\Location;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class() extends Migration {
+return new class extends Migration {
     public function up(): void
     {
-        if (Schema::hasTable('location_images')) {
-            return;
-        }
-        Schema::create('location_images', function (Blueprint $table) {
+        Schema::create('trips', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->foreignUlid('loction_id');
             $table->string('name');
-            $table->string('path');
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+            $table->string('cover_photo')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -25,6 +22,6 @@ return new class() extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('location_images');
+        Schema::dropIfExists('trips');
     }
 };

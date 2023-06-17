@@ -9,8 +9,12 @@ use Illuminate\Support\Facades\Schema;
 return new class() extends Migration {
     public function up(): void
     {
+        if (Schema::hasTable('locations')) {
+            return;
+        }
+
         Schema::create('locations', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->ulid('id')->primary();
             $table->string('name');
             $table->decimal('longitude', 11, 8)->nullable();
             $table->decimal('latitude', 11, 8)->nullable();
