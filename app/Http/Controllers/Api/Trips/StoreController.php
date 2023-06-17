@@ -27,7 +27,7 @@ final class StoreController extends Controller
             }
 
             if ($request->hasFile('cover_photo')) {
-
+                $coverPhotoFileName = $storeTripCoverPhotoAction->execute($request->file('cover_photo'));
             }
 //            $trip
         });
