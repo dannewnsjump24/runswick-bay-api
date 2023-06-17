@@ -14,7 +14,7 @@
 - `docker compose exec php php artisan key:generate`
 - `docker compose exec php php artisan migrate`
 
-The app should now be able to hit a ping enpoint att (http://localhost:8000)
+the API should now be able available at (http://localhost:8000)
 
 ## Running commands
 

@@ -16,7 +16,6 @@ final class TokenGenerationException extends Exception
         return new JsonResponse(
             [
                 'error' => 'There was an error registering the user with the provided details',
-                'status_code' => Response::HTTP_BAD_REQUEST,
             ],
             Response::HTTP_BAD_REQUEST,
         );
