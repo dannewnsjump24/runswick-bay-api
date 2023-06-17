@@ -7,6 +7,7 @@ namespace Tests\Unit\Domain\Images;
 use App\Domain\Images\Actions\StoreTripCoverPhotoAction;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -34,5 +35,30 @@ class StoreTripCoverPhotoActionTest extends TestCase
         $this->assertSame($expectedResult, $result);
 
         Storage::assertExists($expectedResult);
+    }
+
+    #[Test]
+    public function it_does_not_upload_file_and_returns_false(): void
+    {
+        Storage::fake('local');
+
+        $uploadedFile = UploadedFile::fake()->image('hello.jpg');
+
+        $this->partialMock(StoreTripCoverPhotoAction::class, function (MockInterface $mock) {
+            $mock->shouldReceive('execute')->once()->andReturn(false);
+        });
+        $action = app()->make(StoreTripCoverPhotoAction::class);
+
+        $location = 'tester-location';
+
+        $filename = '123.jpg';
+
+        $expectedResult = $location . '/' . $filename;
+
+        $result = $action->execute($uploadedFile, $location, $filename);
+
+        $this->assertFalse($result);
+
+        Storage::assertMissing($expectedResult);
     }
 }

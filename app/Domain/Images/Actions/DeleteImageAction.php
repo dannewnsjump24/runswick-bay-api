@@ -6,5 +6,4 @@ namespace App\Domain\Images\Actions;
 
 class DeleteImageAction
 {
-
 }

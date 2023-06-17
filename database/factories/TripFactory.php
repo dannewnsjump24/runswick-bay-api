@@ -8,6 +8,10 @@ use App\Domain\Trips\Models\Trip;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domain\Trips\Models\Trip>
+ * @mixin \App\Domain\Trips\Models\Trip
+ */
 class TripFactory extends Factory
 {
     protected $model = Trip::class;

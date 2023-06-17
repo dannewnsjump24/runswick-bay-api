@@ -13,6 +13,7 @@ class StoreTripCoverPhotoAction
         return $file->storeAs(
             $locationToMoveTo,
             $coverPhotoName,
-            config('filesystems.default'));
+            config('filesystems.default')
+        );
     }
 }

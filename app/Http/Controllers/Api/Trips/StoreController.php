@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Trips;
 
+use App\Domain\Images\Actions\StoreTripCoverPhotoAction;
 use App\Domain\Trips\Actions\StoreAction;
 use App\Domain\Trips\Models\Trip;
 use App\Exceptions\Trip\CreateTripException;
@@ -13,9 +14,9 @@ use Illuminate\Support\Facades\DB;
 
 final class StoreController extends Controller
 {
-    public function __invoke(StoreRequest $request, StoreAction $storeAction): void
+    public function __invoke(StoreRequest $request, StoreAction $storeAction, StoreTripCoverPhotoAction $storeTripCoverPhotoAction): void
     {
-        DB::transaction(static function() use ($storeAction, $request) {
+        DB::transaction(static function () use ($storeAction, $request, $storeTripCoverPhotoAction) {
             $tripData = $request->validated();
             $tripData['owner_id'] = $request->user()->id;
 
