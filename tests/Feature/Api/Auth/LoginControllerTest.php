@@ -39,7 +39,7 @@ final class LoginControllerTest extends TestCase
 
         $response = $this->postJson('/api/auth/login', $postData);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertUnprocessable();
     }
 
     #[Test]
