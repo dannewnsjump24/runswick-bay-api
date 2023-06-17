@@ -6,8 +6,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Location\LocationController;
 use App\Http\Controllers\Api\Locations\AllController;
-use Carbon\Carbon;
-use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Api\PingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,18 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get(
-    '/ping',
-    function (): JsonResponse {
-        return response()->json(
-            [
-                'service' => 'Wandersnap API',
-                'timestamp' => Carbon::now()->format('Y-m-d H:i:s'),
-            ]
-        );
-    }
-)
-    ->name('api.ping');
+Route::get('/ping', PingController::class)->name('api.ping');
 
 Route::prefix('auth')->name('api.auth.')->group(function (): void {
     Route::post('/register', RegisterController::class)->name('register');
