@@ -6,8 +6,8 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Location\LocationController;
 use App\Http\Controllers\Api\Locations\AllController;
-use App\Http\Controllers\Api\Trips\StoreController;
 use App\Http\Controllers\Api\PingController;
+use App\Http\Controllers\Api\Trips\StoreController;
 use Illuminate\Support\Facades\Route;
 
 /*

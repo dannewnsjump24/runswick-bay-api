@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Models\Location;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +14,7 @@ return new class() extends Migration {
         }
         Schema::create('location_images', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->foreignUlid('loction_id');
+            $table->foreignUlid('location_id');
             $table->string('name');
             $table->string('path');
             $table->softDeletes();

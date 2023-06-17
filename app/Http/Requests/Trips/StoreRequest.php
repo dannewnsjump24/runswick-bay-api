@@ -20,18 +20,20 @@ class StoreRequest extends FormRequest
             'end_date' => [
                 'required',
                 'date',
-                'after_or_equal:start_date'
+                'after_or_equal:start_date',
             ],
             'cover_photo' => [
                 'nullable',
                 'file',
                 'mimes:jpg,png',
-                'size:20000'
-            ]
+                'size:20000',
+            ],
         ];
     }
 
-    /** @todo Think about how we can better handle this even though we're using sanctum so that is added to all routes */
+    /**
+     * @todo Think about how we can better handle this even though we're using sanctum so that is added to all routes
+     */
     public function authorize(): bool
     {
         $user = $this->user();

@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Trips\Models;
 
+use Database\Factories\TripFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,4 +27,9 @@ class Trip extends Model
         'start_date' => 'datetime',
         'end_date' => 'datetime',
     ];
+
+    protected static function newFactory(): TripFactory
+    {
+        return TripFactory::new();
+    }
 }
