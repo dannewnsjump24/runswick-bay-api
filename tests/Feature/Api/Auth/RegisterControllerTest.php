@@ -24,7 +24,7 @@ final class RegisterControllerTest extends TestCase
 
         $response = $this->postJson('/api/auth/register', $postData);
 
-        $response->assertStatus(Response::HTTP_CREATED)
+        $response->assertCreated()
             ->assertJsonStructure(['token']);
 
         $this->assertDatabaseHas(User::class, [
@@ -38,7 +38,7 @@ final class RegisterControllerTest extends TestCase
     {
         $response = $this->postJson('/api/auth/register', []);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+        $response->assertUnprocessable()
             ->assertJsonValidationErrors(['name', 'email', 'password']);
     }
 
@@ -54,7 +54,7 @@ final class RegisterControllerTest extends TestCase
 
         $response = $this->postJson('/api/auth/register', $userData);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+        $response->assertUnprocessable()
             ->assertJsonValidationErrors(['email'])
             ->assertJsonMissingValidationErrors(['name', 'password']);
     }
@@ -74,7 +74,7 @@ final class RegisterControllerTest extends TestCase
 
         $response = $this->postJson('/api/auth/register', $userData);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+        $response->assertUnprocessable()
             ->assertJsonValidationErrors(['email'])
             ->assertJsonMissingValidationErrors(['name', 'password']);
     }

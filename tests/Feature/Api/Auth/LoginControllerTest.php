@@ -25,7 +25,7 @@ final class LoginControllerTest extends TestCase
 
         $response = $this->postJson('/api/auth/login', $postData);
 
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertUnprocessable();
     }
 
     #[Test]
@@ -58,7 +58,7 @@ final class LoginControllerTest extends TestCase
 
         $response = $this->postJson('/api/auth/login', $postData);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $response->assertJson(fn (AssertableJson $json) => $json->has('token')->etc());
     }
