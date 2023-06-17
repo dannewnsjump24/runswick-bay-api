@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Domain\Trips\Actions;
 
-use App\Models\User;
+use App\Domain\Trips\Models\Trip;
 
 class StoreAction
 {
-    public function __construct(protected User $user)
+    public function __construct(protected Trip $trip)
     {
     }
 
-    public function execute(array $registrationData): ?User
+    public function execute(array $tripCreationData): ?Trip
     {
-        return $this->user->create($registrationData);
+        return $this->trip->create($tripCreationData);
     }
 }
