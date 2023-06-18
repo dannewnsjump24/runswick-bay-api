@@ -6,7 +6,7 @@ namespace App\Domain\Trips\Actions;
 
 use App\Domain\Trips\Models\Trip;
 
-class StoreAction
+final class StoreAction
 {
     public function __construct(protected Trip $trip)
     {

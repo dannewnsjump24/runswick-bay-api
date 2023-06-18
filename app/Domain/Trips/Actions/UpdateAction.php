@@ -6,7 +6,7 @@ namespace App\Domain\Trips\Actions;
 
 use App\Domain\Trips\Models\Trip;
 
-class UpdateAction
+final class UpdateAction
 {
     public function execute(Trip $trip, array $tripUpdateData): bool
     {
