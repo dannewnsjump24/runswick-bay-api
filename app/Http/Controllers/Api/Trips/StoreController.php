@@ -29,7 +29,10 @@ final class StoreController extends Controller
             DB::beginTransaction();
             $tripData = $request->validated();
 
-            $tripData['owner_id'] = $request->user()->id;
+            /** @var \App\Models\User $user */
+            $user = $request->user()->id;
+
+            $tripData['owner_id'] = $user;
 
             $trip = $storeAction->execute($tripData);
 
