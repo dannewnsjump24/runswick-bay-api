@@ -12,8 +12,10 @@ use App\Exceptions\Trip\CreateTripException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Trips\StoreRequest;
 use App\Http\Resources\TripResource;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Throwable;
+use Illuminate\Support\Facades\Log;
 
 final class StoreController extends Controller
 {
@@ -38,15 +40,17 @@ final class StoreController extends Controller
             if ($request->hasFile('cover_photo')) {
                 $uploadedFile = $request->file('cover_photo');
 
-                $tripCoverImageLocation = "{$trip->id}/cover_image/";
+                if ($uploadedFile instanceof UploadedFile) {
+                    $tripCoverImageLocation = "{$trip->id}/cover_image/";
 
-                $coverPhotoFileName = "{$trip->id}_cover_photo.{$uploadedFile->getClientOriginalExtension()}";
+                    $coverPhotoFileName = "{$trip->id}_cover_photo.{$uploadedFile->getClientOriginalExtension()}";
 
-                $coverPhotoFileName = $storeTripCoverPhotoAction->execute($uploadedFile, $tripCoverImageLocation, $coverPhotoFileName);
+                    $coverPhotoFileName = $storeTripCoverPhotoAction->execute($uploadedFile, $tripCoverImageLocation, $coverPhotoFileName);
 
-                $updateTripAction->execute($trip, [
-                    'cover_photo' => $coverPhotoFileName,
-                ]);
+                    $updateTripAction->execute($trip, [
+                        'cover_photo' => $coverPhotoFileName,
+                    ]);
+                }
             }
             $trip->refresh();
 
@@ -55,6 +59,8 @@ final class StoreController extends Controller
             return new TripResource($trip);
         } catch (Throwable $e) {
             DB::rollback();
+
+            Log::error(__CLASS__, ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
 
             throw new CreateTripException();
         }
