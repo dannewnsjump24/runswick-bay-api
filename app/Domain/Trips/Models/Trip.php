@@ -18,6 +18,7 @@ class Trip extends Model
 
     protected $fillable = [
         'id',
+        'owner_id',
         'name',
         'start_date',
         'end_date',

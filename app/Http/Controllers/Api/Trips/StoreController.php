@@ -14,8 +14,8 @@ use App\Http\Requests\Trips\StoreRequest;
 use App\Http\Resources\TripResource;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Throwable;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 final class StoreController extends Controller
 {
@@ -29,10 +29,7 @@ final class StoreController extends Controller
             DB::beginTransaction();
             $tripData = $request->validated();
 
-            /** @var \App\Models\User $user */
-            $user = $request->user()->id;
-
-            $tripData['owner_id'] = $user;
+            $tripData['owner_id'] = auth()->id();
 
             $trip = $storeAction->execute($tripData);
 
@@ -63,7 +60,9 @@ final class StoreController extends Controller
         } catch (Throwable $e) {
             DB::rollback();
 
-            Log::error(__CLASS__, ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+            Log::error(__CLASS__, [
+                'error' => $e->getMessage(), 'trace' => $e->getTraceAsString()
+            ]);
 
             throw new CreateTripException();
         }
