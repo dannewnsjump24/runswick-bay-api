@@ -53,7 +53,6 @@ final class StoreController extends Controller
             DB::commit();
 
             return new TripResource($trip);
-
         } catch (Throwable $e) {
             DB::rollback();
 
