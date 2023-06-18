@@ -17,6 +17,7 @@ class Location extends Model
     use HasUuids;
 
     protected $fillable = [
+        'id',
         'name',
         'latitude',
         'longitude',

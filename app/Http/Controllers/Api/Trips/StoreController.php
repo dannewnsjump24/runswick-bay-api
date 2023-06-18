@@ -11,7 +11,9 @@ use App\Domain\Trips\Models\Trip;
 use App\Exceptions\Trip\CreateTripException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Trips\StoreRequest;
+use App\Http\Resources\TripResource;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 final class StoreController extends Controller
 {
@@ -20,8 +22,9 @@ final class StoreController extends Controller
         StoreAction $storeAction,
         StoreTripCoverPhotoAction $storeTripCoverPhotoAction,
         UpdateAction $updateTripAction
-    ): void {
-        DB::transaction(static function () use ($storeAction, $request, $storeTripCoverPhotoAction, $updateTripAction) {
+    ): TripResource {
+        try {
+            DB::beginTransaction();
             $tripData = $request->validated();
 
             $tripData['owner_id'] = $request->user()->id;
@@ -41,14 +44,20 @@ final class StoreController extends Controller
 
                 $coverPhotoFileName = $storeTripCoverPhotoAction->execute($uploadedFile, $tripCoverImageLocation, $coverPhotoFileName);
 
-                $updateTripAction->execute($trip, ['cover_photo' => $coverPhotoFileName]);
+                $updateTripAction->execute($trip, [
+                    'cover_photo' => $coverPhotoFileName,
+                ]);
             }
-        });
-        //wrap this code in a transaction to clear up after itself if it fails
-        //create the trip
-        //check if there is a file uploaded
-        //upload the image using the disk.
-        //@todo look at if we can move the image upload to a job
-        //$storeAction->execute();
+            $trip->refresh();
+
+            DB::commit();
+
+            return new TripResource($trip);
+
+        } catch (Throwable $e) {
+            DB::rollback();
+
+            throw new CreateTripException();
+        }
     }
 }

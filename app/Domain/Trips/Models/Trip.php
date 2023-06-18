@@ -17,6 +17,7 @@ class Trip extends Model
     use HasUlids;
 
     protected $fillable = [
+        'id',
         'name',
         'start_date',
         'end_date',

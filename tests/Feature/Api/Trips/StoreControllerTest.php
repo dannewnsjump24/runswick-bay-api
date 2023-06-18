@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Api\Trips;
 
+use App\Domain\Trips\Models\Trip;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -53,7 +54,7 @@ class StoreControllerTest extends TestCase
 
         $response = $this->postJson(route('api.trips.store'), $postData);
 
-        $response->assertInvalid(['start_date']);
+        $response->assertInvalid(['end_date']);
     }
 
     #[Test]
@@ -72,5 +73,16 @@ class StoreControllerTest extends TestCase
         $response = $this->postJson(route('api.trips.store'), $postData);
 
         $response->assertCreated();
+
+        $this->assertDatabaseCount(Trip::class, 1);
+
+        $this->assertDatabaseHas(
+            Trip::class,
+            [
+                'name' => $postData['name'],
+                'start_date' => $postData['start_date'],
+                'end_date' => $postData['end_date'],
+            ]
+        );
     }
 }

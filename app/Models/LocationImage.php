@@ -14,6 +14,7 @@ class LocationImage extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'location_id',
         'name',
         'path',
