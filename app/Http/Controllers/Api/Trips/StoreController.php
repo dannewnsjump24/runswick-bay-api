@@ -41,7 +41,7 @@ final class StoreController extends Controller
                 $uploadedFile = $request->file('cover_photo');
 
                 if ($uploadedFile instanceof UploadedFile) {
-                    $tripCoverImageLocation = "{$trip->id}/cover_image/";
+                    $tripCoverImageLocation = "{$trip->id}/cover_image";
 
                     $coverPhotoFileName = "{$trip->id}_cover_photo.{$uploadedFile->getClientOriginalExtension()}";
 
@@ -61,7 +61,7 @@ final class StoreController extends Controller
             DB::rollback();
 
             Log::error(__CLASS__, [
-                'error' => $e->getMessage(), 'trace' => $e->getTraceAsString()
+                'error' => $e->getMessage(), 'trace' => $e->getTraceAsString(),
             ]);
 
             throw new CreateTripException();

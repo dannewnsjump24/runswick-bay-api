@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
                 'nullable',
                 'file',
                 'mimes:jpg,png',
-                'size:20000',
+                'max:20000',
             ],
         ];
     }

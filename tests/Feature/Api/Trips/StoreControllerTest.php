@@ -8,6 +8,8 @@ use App\Domain\Trips\Models\Trip;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\Sanctum;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
@@ -84,5 +86,42 @@ class StoreControllerTest extends TestCase
                 'end_date' => $postData['end_date'],
             ]
         );
+    }
+
+    #[Test]
+    public function it_creates_a_report_with_an_image(): void
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $file = UploadedFile::fake()->image('avatar.jpg');
+
+        $postData = [
+            'name' => $this->faker->name(),
+            'start_date' => now()->addWeek()->format('Y-m-d'),
+            'end_date' => now()->addWeeks(2)->format('Y-m-d'),
+            'cover_photo' => $file,
+        ];
+
+        $response = $this->postJson(route('api.trips.store'), $postData);
+
+        $trip = $response->json('data');
+
+        $newFileName = "{$trip['id']}/cover_image/";
+
+        $coverPhotoFileName = $newFileName . "{$trip['id']}_cover_photo.{$file->getClientOriginalExtension()}";
+
+        $this->assertDatabaseHas(
+            Trip::class,
+            [
+                'name' => $postData['name'],
+                'start_date' => $postData['start_date'],
+                'end_date' => $postData['end_date'],
+                'cover_photo' => $coverPhotoFileName,
+            ]
+        );
+
+        Storage::disk(config('filesystems.default'))->assertExists($coverPhotoFileName);
     }
 }
