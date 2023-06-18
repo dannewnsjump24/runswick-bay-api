@@ -40,6 +40,7 @@ final class StoreController extends Controller
             if ($request->hasFile('cover_photo')) {
                 $uploadedFile = $request->file('cover_photo');
 
+                /** @todo discuss here if we should trigger a job for resizing of images */
                 if ($uploadedFile instanceof UploadedFile) {
                     $tripCoverImageLocation = "{$trip->id}/cover_image";
 
