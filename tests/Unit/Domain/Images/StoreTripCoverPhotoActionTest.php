@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Domain\Images;
 
 use App\Domain\Images\Actions\StoreTripCoverPhotoAction;
+use App\Exceptions\Image\ImageStoreException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Mockery\MockInterface;
@@ -44,8 +45,10 @@ class StoreTripCoverPhotoActionTest extends TestCase
 
         $uploadedFile = UploadedFile::fake()->image('hello.jpg');
 
+        $this->expectException(ImageStoreException::class);
+
         $this->partialMock(StoreTripCoverPhotoAction::class, function (MockInterface $mock) {
-            $mock->shouldReceive('execute')->once()->andReturn(false);
+            $mock->shouldReceive('execute')->once()->andThrows(ImageStoreException::class);
         });
         $action = app()->make(StoreTripCoverPhotoAction::class);
 
@@ -56,8 +59,6 @@ class StoreTripCoverPhotoActionTest extends TestCase
         $expectedResult = $location . '/' . $filename;
 
         $result = $action->execute($uploadedFile, $location, $filename);
-
-        $this->assertFalse($result);
 
         Storage::assertMissing($expectedResult);
     }
