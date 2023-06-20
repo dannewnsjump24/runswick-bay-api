@@ -12,6 +12,11 @@ class RetrieveUserTripsAction
     public function __construct(protected Trip $trip)
     {
     }
+
+    /**
+     * @param int $userId
+     * @return Collection<int, Trip>
+     */
     public function execute(int $userId): Collection
     {
         return $this->trip->query()->where('owner_id', '=', $userId)->get();

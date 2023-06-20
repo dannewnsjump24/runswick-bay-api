@@ -25,14 +25,26 @@ class RetrieveUserTripsActionTest extends TestCase
     }
 
     #[Test]
-    public function it_returns_no_element_when_tasks_exist_but_dont_belong_to_the_user(): void
+    public function it_returns_no_element_when_trip_exist_but_dont_belong_to_the_user(): void
     {
         $trip = Trip::factory()->create();
 
         $action = app()->make(RetrieveUserTripsAction::class);
 
-        $result = $action->execute(1);
+        $result = $action->execute(99);
 
         $this->assertEmpty($result);
+    }
+
+    #[Test]
+    public function it_returns_a_element_when_a_trip_exists_and_is_owned_by_the_user(): void
+    {
+        $trip = Trip::factory()->create();
+
+        $action = app()->make(RetrieveUserTripsAction::class);
+
+        $result = $action->execute($trip->owner_id);
+
+        $this->assertCount(1, $result);
     }
 }
