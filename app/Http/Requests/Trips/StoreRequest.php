@@ -30,18 +30,4 @@ class StoreRequest extends FormRequest
             ],
         ];
     }
-
-    /**
-     * @todo Think about how we can better handle this even though we're using sanctum so that is added to all routes
-     */
-    public function authorize(): bool
-    {
-        $user = $this->user();
-
-        if (!$user instanceof User) {
-            return false;
-        }
-
-        return true;
-    }
 }
