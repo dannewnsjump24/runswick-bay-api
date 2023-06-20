@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\TripResource;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class IndexController extends Controller
+final class IndexController extends Controller
 {
     public function __invoke(RetrieveUserTripsAction $retrieveUserTripsAction): AnonymousResourceCollection
     {

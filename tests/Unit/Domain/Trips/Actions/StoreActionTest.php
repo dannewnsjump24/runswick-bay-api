@@ -8,7 +8,10 @@ use Tests\TestCase;
 
 class StoreActionTest extends TestCase
 {
-    public function testBasic()
+    /**
+     * @test
+     */
+    public function basic(): void
     {
         $this->assertTrue(true);
     }
