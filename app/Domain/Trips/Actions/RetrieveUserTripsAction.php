@@ -14,7 +14,7 @@ final class RetrieveUserTripsAction
     }
 
     /**
-     * @return Collection<int, Trip>
+     * @return Collection<int, \Illuminate\Database\Eloquent\Model>
      */
     public function execute(int $userId): Collection
     {

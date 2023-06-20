@@ -13,7 +13,7 @@ final class IndexController extends Controller
 {
     public function __invoke(RetrieveUserTripsAction $retrieveUserTripsAction): AnonymousResourceCollection
     {
-        $trips = $retrieveUserTripsAction->execute(auth()->id());
+        $trips = $retrieveUserTripsAction->execute((int)auth()->id());
 
         return TripResource::collection($trips);
     }
