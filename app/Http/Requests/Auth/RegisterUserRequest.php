@@ -32,11 +32,6 @@ class RegisterUserRequest extends FormRequest
         ];
     }
 
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     /**
      * Prepare the data for validation.
      */
