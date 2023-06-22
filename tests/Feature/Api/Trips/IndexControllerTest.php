@@ -130,7 +130,8 @@ class IndexControllerTest extends TestCase
 
         $response->assertJsonCount(15, 'data');
 
-        $response->assertJson([
+        $response->assertJson(
+            [
                 'meta' => [
                     "current_page" => 1,
                     "from" => 1,
