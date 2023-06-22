@@ -47,6 +47,7 @@ class Trip extends Model
     }
 
     /**
+     * @param  array<int, \App\Domain\Trips\Models\Trip> $models
      * @return \App\Domain\Trips\Collections\TripCollection<int, \App\Domain\Trips\Models\Trip>
      */
     public function newCollection(array $models = []): TripCollection
