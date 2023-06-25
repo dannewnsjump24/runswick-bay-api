@@ -20,7 +20,9 @@ class DeleteControllerTest extends TestCase
     #[Test]
     public function it_doesnt_delete_a_trip_when_not_authenticated(): void
     {
-        $response = $this->deleteJson(route('api.trips.delete'));
+        $trip = Trip::factory()->create();
+
+        $response = $this->deleteJson(route('api.trips.delete', $trip->id));
 
         $response->assertUnauthorized();
     }
@@ -32,10 +34,36 @@ class DeleteControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        Trip::factory()->create();
+        $trip = Trip::factory()->create();
 
-        $response = $this->deleteJson(route('api.trips.delete'));
+        $response = $this->deleteJson(route('api.trips.delete', $trip->id));
 
-        $response->assertNotFound();
+        $response->assertForbidden();
+    }
+
+    #[Test]
+    public function it_does_delete_a_trip_that_the_user_owns(): void
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $trip = Trip::factory()->create(
+            [
+                'owner_id' => $user->id,
+            ]
+        );
+
+        $response = $this->deleteJson(route('api.trips.delete', $trip->id));
+
+        $response->assertNoContent();
+
+        $this->assertDatabaseMissing(
+            Trip::class,
+            [
+                'id' => $trip->id,
+                'owner_id' => $user->id,
+            ]
+        );
     }
 }

@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Trips;
 
+use App\Domain\Trips\Models\Trip;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
-class DeleteController extends Controller
+final class DeleteController extends Controller
 {
-    public function __invoke()
+    public function __invoke(Trip $trip): JsonResponse
     {
+        $this->authorize('delete', $trip);
 
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }
