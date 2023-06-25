@@ -58,7 +58,7 @@ class DeleteControllerTest extends TestCase
 
         $response->assertNoContent();
 
-        $this->assertDatabaseMissing(
+        $this->assertSoftDeleted(
             Trip::class,
             [
                 'id' => $trip->id,

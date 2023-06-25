@@ -15,6 +15,8 @@ final class DeleteController extends Controller
     {
         $this->authorize('delete', $trip);
 
+        $trip->delete();
+
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }
