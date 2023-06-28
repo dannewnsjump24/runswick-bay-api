@@ -17,9 +17,6 @@ use Tests\TestCase;
 class StoreActionTest extends TestCase
 {
     #[Test]
-    /**
-     * @test
-     */
     public function it_throws_exception_when_failed_creation(): void
     {
         $this->expectException(CreateTripException::class);
@@ -34,9 +31,6 @@ class StoreActionTest extends TestCase
     }
 
     #[Test]
-    /**
-     * @test
-     */
     public function it_saves_the_data_to_the_database_correctly(): void
     {
         $action = app()->make(StoreAction::class);
