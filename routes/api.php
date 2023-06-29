@@ -40,7 +40,7 @@ Route::middleware('auth:sanctum')
 Route::middleware('auth:sanctum')
     ->prefix('trips')
     ->name('api.trips.')->group(function (): void {
-        Route::Post('/', StoreController::class)->name('store');
+        Route::post('/', StoreController::class)->name('store');
         Route::get('/', IndexController::class)->name('index');
         Route::delete('/{trip}', DeleteController::class)->name('delete');
     });

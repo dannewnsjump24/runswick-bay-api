@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Api\Trips;
 use App\Domain\Images\Actions\StoreTripCoverPhotoAction;
 use App\Domain\Trips\Actions\StoreAction;
 use App\Domain\Trips\Actions\UpdateAction;
-use App\Domain\Trips\Models\Trip;
 use App\Exceptions\Trip\CreateTripException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Trips\StoreRequest;
@@ -32,10 +31,6 @@ final class StoreController extends Controller
             $tripData['owner_id'] = auth()->id();
 
             $trip = $storeAction->execute($tripData);
-
-            if (!$trip instanceof Trip) {
-                throw new CreateTripException();
-            }
 
             if ($request->hasFile('cover_photo')) {
                 $uploadedFile = $request->file('cover_photo');
