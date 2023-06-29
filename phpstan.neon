@@ -1,6 +1,4 @@
 includes:
-    - ./vendor/jumptwentyfour/laravel-coding-standards/phpstan.neon
-    #- ./vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
 
 parameters:
     level: 8
@@ -22,4 +20,6 @@ parameters:
         - .phpstorm.meta.php
         - node_modules
 
-    ignoreErrors:
+    cognitive_complexity:
+        class: 50
+        function: 8

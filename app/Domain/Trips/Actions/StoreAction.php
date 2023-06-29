@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Trips\Actions;
 
 use App\Domain\Trips\Models\Trip;
+use App\Exceptions\Trip\CreateTripException;
 
 final class StoreAction
 {
@@ -12,8 +13,15 @@ final class StoreAction
     {
     }
 
-    public function execute(array $tripCreationData): ?Trip
+    /**
+     * @throws \App\Exceptions\Trip\CreateTripException
+     */
+    public function execute(array $tripCreationData): Trip
     {
-        return $this->trip->create($tripCreationData);
+        $createResult = $this->trip->create($tripCreationData);
+
+        throw_unless($createResult instanceof Trip, CreateTripException::class);
+
+        return $createResult;
     }
 }

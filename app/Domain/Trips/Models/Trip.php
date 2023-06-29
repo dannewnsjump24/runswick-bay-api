@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Trips\Models;
 
+use App\Domain\Trips\Collections\TripCollection;
 use App\Models\User;
 use Database\Factories\TripFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -43,5 +44,14 @@ class Trip extends Model
     protected static function newFactory(): TripFactory
     {
         return TripFactory::new();
+    }
+
+    /**
+     * @param  array<int, \App\Domain\Trips\Models\Trip> $models
+     * @return \App\Domain\Trips\Collections\TripCollection<int, \App\Domain\Trips\Models\Trip>
+     */
+    public function newCollection(array $models = []): TripCollection
+    {
+        return new TripCollection($models);
     }
 }
