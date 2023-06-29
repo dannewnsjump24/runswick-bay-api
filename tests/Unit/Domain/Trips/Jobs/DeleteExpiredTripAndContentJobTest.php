@@ -19,7 +19,7 @@ class DeleteExpiredTripAndContentJobTest extends TestCase
         $trip = Trip::factory()->create();
 
         $this->artisan(DeleteExpiredTripsAndRelatedContentCommand::class, [
-            'dayToGoBack' => 30
+            'dayToGoBack' => 30,
         ]);
         $this->assertDatabaseHas(
             Trip::class,
@@ -40,7 +40,7 @@ class DeleteExpiredTripAndContentJobTest extends TestCase
         );
 
         $this->artisan(DeleteExpiredTripsAndRelatedContentCommand::class, [
-            'dayToGoBack' => 30
+            'dayToGoBack' => 30,
         ]);
         $this->assertSoftDeleted(
             Trip::class,
@@ -60,7 +60,7 @@ class DeleteExpiredTripAndContentJobTest extends TestCase
         );
 
         $this->artisan(DeleteExpiredTripsAndRelatedContentCommand::class, [
-            'dayToGoBack' => 30
+            'dayToGoBack' => 30,
         ]);
         $this->assertDatabaseMissing(
             Trip::class,
