@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Trips\Model;
+namespace Tests\Unit\Domain\Trips\Models;
 
 use App\Domain\Trips\Models\Trip;
 use App\Models\User;

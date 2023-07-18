@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- * @mixin \App\Models\Location
+ * @mixin \App\Domain\Locations\Models\Location
  */
 class UserFactory extends Factory
 {

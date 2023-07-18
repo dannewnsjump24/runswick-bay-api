@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Domain\Locations\Models\Location;
 use App\Domain\Trips\Models\Trip;
+use App\Policies\LocationPolicy;
 use App\Policies\TripPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -18,6 +20,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Trip::class => TripPolicy::class,
+        Location::class => LocationPolicy::class,
     ];
 
     /**

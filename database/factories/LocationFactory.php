@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Location;
+use App\Domain\Locations\Models\Location;
+use App\Domain\Trips\Models\Trip;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Location>
- * @mixin \App\Models\Location
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domain\Locations\Models\Location>
+ * @mixin \App\Domain\Locations\Models\Location
  */
 class LocationFactory extends Factory
 {
@@ -19,6 +20,7 @@ class LocationFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
+            'trip_id' => Trip::factory(),
             'latitude' => $this->faker->latitude(),
             'longitude' => $this->faker->longitude(),
         ];

@@ -13,4 +13,9 @@ class TripPolicy
     {
         return $user->id === $trip->owner_id;
     }
+
+    public function view(User $user, Trip $trip): bool
+    {
+        return $user->id === $trip->owner_id;
+    }
 }

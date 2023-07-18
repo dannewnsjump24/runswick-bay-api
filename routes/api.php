@@ -34,7 +34,7 @@ Route::middleware('auth:sanctum')
     ->prefix('locations')
     ->name('api.locations.')->group(function (): void {
         Route::get('/', AllController::class)->name('list-all');
-        Route::get('/{location}', LocationController::class)->name('single-location');
+        Route::get('/{location}', LocationController::class)->name('single-location')->middleware('can:view,location');
     });
 
 Route::middleware('auth:sanctum')

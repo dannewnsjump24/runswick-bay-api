@@ -7,7 +7,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Models\Location */
+/** @mixin \App\Domain\Locations\Models\Location */
 class LocationResource extends JsonResource
 {
     public function toArray(Request $request): array
@@ -15,6 +15,8 @@ class LocationResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'trip_id' => $this->trip_id,
+            'trip' => new TripResource($this->whenLoaded('tripe')),
             'latitude' => (float)$this->latitude,
             'longitude' => (float)$this->longitude,
             'images' => LocationImageResource::collection($this->whenLoaded('images')),
