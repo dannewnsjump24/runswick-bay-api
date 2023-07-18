@@ -42,5 +42,5 @@ Route::middleware('auth:sanctum')
     ->name('api.trips.')->group(function (): void {
         Route::post('/', StoreController::class)->name('store');
         Route::get('/', IndexController::class)->name('index');
-        Route::delete('/{trip}', DeleteController::class)->name('delete');
+        Route::delete('/{trip}', DeleteController::class)->name('delete')->middleware('can:delete,trip');
     });

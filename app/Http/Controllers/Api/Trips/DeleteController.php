@@ -13,8 +13,6 @@ final class DeleteController extends Controller
 {
     public function __invoke(Trip $trip): JsonResponse
     {
-        $this->authorize('delete', $trip);
-
         $trip->delete();
 
         return response()->json([], Response::HTTP_NO_CONTENT);
