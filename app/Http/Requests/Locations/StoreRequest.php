@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Locations;
 
 use App\Domain\Trips\Models\Trip;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -19,7 +20,9 @@ class StoreRequest extends FormRequest
             ],
             'trip_id' => [
                 'required',
-                Rule::exists(Trip::class, 'id'), //@todo add custom validation rule to check the trip id is owned by logged in user.
+                Rule::exists(Trip::class, 'id')->where(function (Builder $query) {
+                    return $query->where('owner_id', '=', $this->user()->id);
+                }),
             ],
             'lat' => [
                 'required',
