@@ -75,4 +75,34 @@ class CreateControllerTest extends TestCase
 
         $response->assertJsonValidationErrorFor('trip_id');
     }
+
+    #[Test]
+    public function it_wont_allow_a_invalid_lat_long_to_save(): void
+    {
+        $user = User::factory()->create();
+
+        $userTwo = User::factory()->create();
+
+        /** @var Trip $trip */
+        $trip = Trip::factory()->create(
+            [
+                'owner_id' => $userTwo->id,
+            ]
+        );
+
+        Sanctum::actingAs($user);
+
+        $locationData = [
+            'trip_id' => $trip->id,
+            'name' => 'south wales',
+            'lat' => $this->faker->latitude(),
+            'long' => $this->faker->longitude(),
+        ];
+
+        $response = $this->postJson(route('api.locations.store'), $locationData);
+
+        $response->assertUnprocessable();
+
+        $response->assertJsonValidationErrorFor('trip_id');
+    }
 }
