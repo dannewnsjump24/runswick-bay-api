@@ -8,8 +8,6 @@ use App\Domain\Locations\Models\Location;
 use App\Domain\Locations\Models\LocationImage;
 use App\Domain\Trips\Models\Trip;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Response;
 use Laravel\Sanctum\Sanctum;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
@@ -18,8 +16,6 @@ use Tests\TestCase;
 #[Group("Locations")]
 class LocationControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     #[Test]
     public function it_will_return_not_authenticated_response_to_not_allow_the_user_to_view_it(): void
     {
