@@ -28,7 +28,7 @@ class StoreRequest extends FormRequest
             'long' => [
                 'required',
                 'numeric',
-            ]
+            ],
         ];
     }
 }
