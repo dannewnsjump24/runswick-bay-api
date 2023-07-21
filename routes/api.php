@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
-use App\Http\Controllers\Api\Location\StoreController;
 use App\Http\Controllers\Api\Location\LocationController;
 use App\Http\Controllers\Api\Locations\AllController;
+use App\Http\Controllers\Api\Location\StoreController as StoreLocationController;
 use App\Http\Controllers\Api\PingController;
 use App\Http\Controllers\Api\Trips\DeleteController;
 use App\Http\Controllers\Api\Trips\IndexController;
@@ -35,7 +35,7 @@ Route::middleware('auth:sanctum')
     ->prefix('locations')
     ->name('api.locations.')->group(function (): void {
         Route::get('/', AllController::class)->name('list-all');
-        Route::post('/', StoreController::class)->name('store');
+        Route::post('/', StoreLocationController::class)->name('store');
         Route::get('/{location}', LocationController::class)->name('single-location')->middleware('can:view,location');
     });
 
