@@ -26,11 +26,11 @@ class StoreRequest extends FormRequest
                     return $query->where('owner_id', '=', $user->id);
                 }),
             ],
-            'lat' => [
+            'latitude' => [
                 'required',
                 'numeric',
             ],
-            'long' => [
+            'longitude' => [
                 'required',
                 'numeric',
             ],

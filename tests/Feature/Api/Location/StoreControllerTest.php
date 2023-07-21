@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Api\Location;
 
+use App\Domain\Locations\Models\Location;
 use App\Domain\Trips\Models\Trip;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Laravel\Sanctum\Sanctum;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
@@ -38,8 +40,8 @@ class StoreControllerTest extends TestCase
 
         $response->assertJsonValidationErrors(
             [
-                'lat',
-                'long',
+                'latitude',
+                'longitude',
                 'name',
                 'trip_id',
             ]
@@ -65,8 +67,8 @@ class StoreControllerTest extends TestCase
         $locationData = [
             'trip_id' => $trip->id,
             'name' => 'south wales',
-            'lat' => $this->faker->latitude(),
-            'long' => $this->faker->longitude(),
+            'latitude' => $this->faker->latitude(),
+            'longitude' => $this->faker->longitude(),
         ];
 
         $response = $this->postJson(route('api.locations.store'), $locationData);
@@ -95,8 +97,8 @@ class StoreControllerTest extends TestCase
         $locationData = [
             'trip_id' => $trip->id,
             'name' => 'south wales',
-            'lat' => $this->faker->latitude(),
-            'long' => $this->faker->longitude(),
+            'latitude' => $this->faker->latitude(),
+            'longitude' => $this->faker->longitude(),
         ];
 
         $response = $this->postJson(route('api.locations.store'), $locationData);
@@ -104,5 +106,48 @@ class StoreControllerTest extends TestCase
         $response->assertUnprocessable();
 
         $response->assertJsonValidationErrorFor('trip_id');
+    }
+
+    #[Test]
+    public function it_will_create_a_valid_location_for_the_user_who_owns_the_tripe(): void
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+
+        /** @var Trip $trip */
+        $trip = Trip::factory()->create(
+            [
+                'owner_id' => $user->id,
+            ]
+        );
+
+        Sanctum::actingAs($user);
+
+        $lat = $this->faker->latitude();
+        $long = $this->faker->longitude();
+
+        $locationData = [
+            'trip_id' => $trip->id,
+            'name' => 'south wales',
+            'latitude' => $lat,
+            'longitude' => $long,
+        ];
+
+        $response = $this->postJson(route('api.locations.store'), $locationData);
+
+        $response->assertCreated()
+        ->assertJson(function (AssertableJson $json) use ($locationData) {
+            $json->has('data.trip_id')->where('data.trip_id', $locationData['trip_id']);
+        });
+
+        $this->assertDatabaseHas(
+            Location::class,
+            [
+                'name' => 'south wales',
+                'latitude' => $lat,
+                'longitude' => $long,
+                'trip_id' => $trip->id,
+            ]
+        );
     }
 }
