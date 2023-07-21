@@ -14,7 +14,8 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "league/flysystem-path-prefixing": "^3.0",
         "predis/predis": "^1.1",
-        "thecodingmachine/safe": "^2.5"
+        "thecodingmachine/safe": "^2.5",
+        "tpetry/laravel-query-expressions": "^0.5.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",
@@ -30,7 +31,7 @@
         "spatie/laravel-ray": "^1.32",
         "thecodingmachine/phpstan-safe-rule": "^1.2",
         "timacdonald/log-fake": "^2.0",
-        "tomasvotruba/cognitive-complexcomity": "^0.1.1",
+        "tomasvotruba/cognitive-complexity": "^0.1.1",
         "worksome/request-factories": "^3.2"
     },
     "autoload": {
