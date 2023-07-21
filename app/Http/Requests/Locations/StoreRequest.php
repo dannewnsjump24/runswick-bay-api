@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Locations;
 
 use App\Domain\Trips\Models\Trip;
+use App\Models\User;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -21,7 +22,9 @@ class StoreRequest extends FormRequest
             'trip_id' => [
                 'required',
                 Rule::exists(Trip::class, 'id')->where(function (Builder $query) {
-                    return $query->where('owner_id', '=', $this->user()->id);
+                    /** @var User $user */
+                    $user = $this->user();
+                    return $query->where('owner_id', '=', $user->id);
                 }),
             ],
             'lat' => [

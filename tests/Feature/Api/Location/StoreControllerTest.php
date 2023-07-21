@@ -13,7 +13,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 #[Group("Locations")]
-class CreateControllerTest extends TestCase
+class StoreControllerTest extends TestCase
 {
     use WithFaker;
 
