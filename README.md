@@ -52,15 +52,4 @@ You can access the Mailpit UI at http://localhost:8025
 
 Pull requests targeting the `main` branch should reference a Jira task using either the branch name or a commit message, more information can be found [here](https://support.atlassian.com/jira-software-cloud/docs/reference-issues-in-your-development-work/).
 
-This ensure all PRs are linked to a Jira task.
-
-## Advanced Setup
-
-### Google OAuth
-
-To enable Sign in with Google you will need to create a Google OAuth client ID and secret.
-
-- Follow the steps at https://console.cloud.google.com/apis/credentials
-- Set the Authorized redirect URI to `http://localhost:8000/auth/google/callback`
-- Copy the client ID and secret into the `.env` file (`GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`)
-- Run `docker compose exec php php artisan config:clear`
+This ensures all PRs are linked to a Jira task.
