@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Locations\AllController;
 use App\Http\Controllers\Api\PingController;
 use App\Http\Controllers\Api\Trips\DeleteController;
 use App\Http\Controllers\Api\Trips\IndexController;
+use App\Http\Controllers\Api\Trips\RetrieveTripController;
 use App\Http\Controllers\Api\Trips\StoreController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +37,7 @@ Route::middleware('auth:sanctum')
     ->name('api.locations.')->group(function (): void {
         Route::get('/', AllController::class)->name('list-all');
         Route::post('/', StoreLocationController::class)->name('store');
-        Route::get('/{location}', LocationController::class)->name('single-location')->middleware('can:view,location');
+        Route::get('/{location}', LocationController::class)->name('retrieve')->middleware('can:view,location');
     });
 
 Route::middleware('auth:sanctum')
@@ -44,5 +45,6 @@ Route::middleware('auth:sanctum')
     ->name('api.trips.')->group(function (): void {
         Route::post('/', StoreController::class)->name('store');
         Route::get('/', IndexController::class)->name('index');
+        Route::get('/{trip}', RetrieveTripController::class)->name('retrieve')->middleware('can:view,trip');
         Route::delete('/{trip}', DeleteController::class)->name('delete')->middleware('can:delete,trip');
     });

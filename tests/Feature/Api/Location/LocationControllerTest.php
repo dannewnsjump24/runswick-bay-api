@@ -21,7 +21,7 @@ class LocationControllerTest extends TestCase
     {
         $location = Location::factory()->create();
 
-        $response = $this->getJson(route('api.locations.single-location', $location->id));
+        $response = $this->getJson(route('api.locations.retrieve', $location->id));
 
         $response->assertUnauthorized();
     }
@@ -31,7 +31,7 @@ class LocationControllerTest extends TestCase
     {
         Sanctum::actingAs(User::factory()->create());
 
-        $response = $this->getJson(route('api.locations.single-location', 100));
+        $response = $this->getJson(route('api.locations.retrieve', 100));
 
         $response->assertNotFound();
     }
@@ -53,7 +53,7 @@ class LocationControllerTest extends TestCase
 
         $location = Location::factory()->for($trip)->create();
 
-        $response = $this->getJson(route('api.locations.single-location', $location->id));
+        $response = $this->getJson(route('api.locations.retrieve', $location->id));
 
         $response->assertForbidden();
     }
@@ -73,7 +73,7 @@ class LocationControllerTest extends TestCase
 
         $location = Location::factory()->for($trip)->create();
 
-        $response = $this->getJson(route('api.locations.single-location', $location->id));
+        $response = $this->getJson(route('api.locations.retrieve', $location->id));
 
         $response->assertOk();
 
@@ -101,7 +101,7 @@ class LocationControllerTest extends TestCase
             'location_id' => $location->id,
         ]);
 
-        $response = $this->getJson(route('api.locations.single-location', $location->id));
+        $response = $this->getJson(route('api.locations.retrieve', $location->id));
 
         $response->assertOk();
 
