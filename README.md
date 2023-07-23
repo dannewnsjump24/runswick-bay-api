@@ -53,3 +53,8 @@ You can access the Mailpit UI at http://localhost:8025
 Pull requests targeting the `main` branch should reference a Jira task using either the branch name or a commit message, more information can be found [here](https://support.atlassian.com/jira-software-cloud/docs/reference-issues-in-your-development-work/).
 
 This ensures all PRs are linked to a Jira task.
+
+
+## Open API Specification
+
+The Open API Spec for this project can be found [here](https://github.com/JumpTwentyFour/wandersnap-api-documentation) 
