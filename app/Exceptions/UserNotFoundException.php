@@ -15,8 +15,7 @@ class UserNotFoundException extends Exception
     {
         return new JsonResponse(
             [
-                'error' => 'The user could not be found',
-                'status_code' => Response::HTTP_BAD_REQUEST,
+                'message' => 'The user could not be found',
             ],
             Response::HTTP_BAD_REQUEST,
         );

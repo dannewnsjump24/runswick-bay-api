@@ -15,7 +15,7 @@ class CreateLocationException extends Exception
     {
         return new JsonResponse(
             [
-                'error' => 'There was an error creating the location.',
+                'message' => 'There was an error creating the location.',
             ],
             Response::HTTP_BAD_REQUEST,
         );
