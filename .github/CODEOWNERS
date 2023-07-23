@@ -5,11 +5,3 @@
 # So if a pull request only touches javascript files, only these owners
 # will be requested to review.
 *.php @JumpTwentyFour/backend
-
-*.css @JumpTwentyFour/frontend
-*.scss @JumpTwentyFour/frontend
-*.vue @JumpTwentyFour/frontend
-*.ts @JumpTwentyFour/frontend
-*.tsx @JumpTwentyFour/frontend
-*.js @JumpTwentyFour/frontend
-*.jsx @JumpTwentyFour/frontend
