@@ -21,9 +21,8 @@ class ViewControllerTest extends TestCase
     {
         $location = Location::factory()->create();
 
-        $response = $this->getJson(route('api.locations.view', $location->id));
-
-        $response->assertUnauthorized();
+        $this->getJson(route('api.locations.view', $location->id))
+            ->assertUnauthorized();
     }
 
     #[Test]
@@ -31,9 +30,8 @@ class ViewControllerTest extends TestCase
     {
         Sanctum::actingAs(User::factory()->create());
 
-        $response = $this->getJson(route('api.locations.view', 100));
-
-        $response->assertNotFound();
+        $this->getJson(route('api.locations.view', 100))
+            ->assertNotFound();
     }
 
     #[Test]
@@ -53,9 +51,8 @@ class ViewControllerTest extends TestCase
 
         $location = Location::factory()->for($trip)->create();
 
-        $response = $this->getJson(route('api.locations.view', $location->id));
-
-        $response->assertForbidden();
+        $this->getJson(route('api.locations.view', $location->id))
+            ->assertForbidden();
     }
 
     #[Test]
@@ -73,13 +70,10 @@ class ViewControllerTest extends TestCase
 
         $location = Location::factory()->for($trip)->create();
 
-        $response = $this->getJson(route('api.locations.view', $location->id));
-
-        $response->assertOk();
-
-        $response->assertJsonFragment($location->toArray());
-
-        $response->assertJsonMissing(['images']);
+        $this->getJson(route('api.locations.view', $location->id))
+            ->assertOk()
+            ->assertJsonFragment($location->toArray())
+            ->assertJsonMissing(['images']);
     }
 
     #[Test]
@@ -101,12 +95,9 @@ class ViewControllerTest extends TestCase
             'location_id' => $location->id,
         ]);
 
-        $response = $this->getJson(route('api.locations.view', $location->id));
-
-        $response->assertOk();
-
-        $response->assertJsonFragment($location->toArray());
-
-        $response->assertJsonCount(1, 'data.images');
+        $this->getJson(route('api.locations.view', $location->id))
+            ->assertOk()
+            ->assertJsonFragment($location->toArray())
+            ->assertJsonCount(1, 'data.images');
     }
 }

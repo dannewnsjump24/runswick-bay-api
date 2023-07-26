@@ -33,7 +33,7 @@ class TripFactory extends Factory
     public function deleted(): static
     {
         return $this->state(fn (array $attributes) => [
-            'deleted_at' => now(),
+            'deleted_at' => now()->subSecond(),
         ]);
     }
 }
