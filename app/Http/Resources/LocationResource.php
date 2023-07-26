@@ -16,7 +16,7 @@ class LocationResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'trip_id' => $this->trip_id,
-            'trip' => new TripResource($this->whenLoaded('tripe')),
+            'trip' => new TripResource($this->whenLoaded('trip')),
             'latitude' => (float)$this->latitude,
             'longitude' => (float)$this->longitude,
             'images' => LocationImageResource::collection($this->whenLoaded('images')),
