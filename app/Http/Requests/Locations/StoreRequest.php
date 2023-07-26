@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Locations;
 
+use App\Domain\Locations\Dtos\Location;
 use App\Domain\Trips\Models\Trip;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
@@ -35,5 +36,15 @@ class StoreRequest extends FormRequest
                 'numeric',
             ],
         ];
+    }
+
+    public function toDto(): Location
+    {
+        return new Location(
+            $this->string('trip_id')->toString(),
+            $this->string('name')->toString(),
+            $this->float('latitude'),
+            $this->float('longitude')
+        );
     }
 }

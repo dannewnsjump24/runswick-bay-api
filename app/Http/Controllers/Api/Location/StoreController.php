@@ -15,7 +15,7 @@ final class StoreController extends Controller
 {
     public function __invoke(StoreRequest $request, StoreLocationAction $createLocationAction): LocationResource
     {
-        $location = $createLocationAction->execute($request->validated());
+        $location = $createLocationAction->execute($request->toDto());
 
         throw_unless($location instanceof Location, CreateLocationException::class);
 

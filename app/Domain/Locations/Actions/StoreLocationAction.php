@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Locations\Actions;
 
+use App\Domain\Locations\Dtos\Location as LocationDto;
 use App\Domain\Locations\Models\Location;
 
 class StoreLocationAction
@@ -12,8 +13,8 @@ class StoreLocationAction
     {
     }
 
-    public function execute(array $locationData): ?Location
+    public function execute(LocationDto $locationData): ?Location
     {
-        return $this->locationModel->create($locationData);
+        return $this->locationModel->create($locationData->toArray());
     }
 }
