@@ -13,14 +13,14 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 #[Group("Trips")]
-class RetrieveControllerTest extends TestCase
+class ViewControllerTest extends TestCase
 {
     #[Test]
     public function it_cannot_retrieve_a_trip_when_not_authorised(): void
     {
         $trip = Trip::factory()->create();
 
-        $response = $this->getJson(route('api.trips.retrieve', $trip->id));
+        $response = $this->getJson(route('api.trips.view', $trip->id));
 
         $response->assertUnauthorized();
     }
@@ -34,7 +34,7 @@ class RetrieveControllerTest extends TestCase
 
         Sanctum::actingAs(User::factory()->create());
 
-        $response = $this->getJson(route('api.trips.retrieve', $trip->id));
+        $response = $this->getJson(route('api.trips.view', $trip->id));
 
         $response->assertForbidden();
     }
@@ -44,7 +44,7 @@ class RetrieveControllerTest extends TestCase
     {
         Sanctum::actingAs(User::factory()->create());
 
-        $response = $this->getJson(route('api.trips.retrieve', '121211221'));
+        $response = $this->getJson(route('api.trips.view', '121211221'));
 
         $response->assertNotFound();
     }
@@ -58,7 +58,7 @@ class RetrieveControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->getJson(route('api.trips.retrieve', $trip->id));
+        $response = $this->getJson(route('api.trips.view', $trip->id));
 
         $response->assertNotFound();
     }
@@ -72,7 +72,7 @@ class RetrieveControllerTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->getJson(route('api.trips.retrieve', $trip->id));
+        $response = $this->getJson(route('api.trips.view', $trip->id));
 
         $response->assertOk()
             ->assertJson(function (AssertableJson $json) use ($trip) {

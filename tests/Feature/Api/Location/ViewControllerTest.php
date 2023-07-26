@@ -14,14 +14,14 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 #[Group("Locations")]
-class LocationControllerTest extends TestCase
+class ViewControllerTest extends TestCase
 {
     #[Test]
     public function it_will_return_not_authenticated_response_to_not_allow_the_user_to_view_it(): void
     {
         $location = Location::factory()->create();
 
-        $response = $this->getJson(route('api.locations.retrieve', $location->id));
+        $response = $this->getJson(route('api.locations.view', $location->id));
 
         $response->assertUnauthorized();
     }
@@ -31,7 +31,7 @@ class LocationControllerTest extends TestCase
     {
         Sanctum::actingAs(User::factory()->create());
 
-        $response = $this->getJson(route('api.locations.retrieve', 100));
+        $response = $this->getJson(route('api.locations.view', 100));
 
         $response->assertNotFound();
     }
@@ -53,7 +53,7 @@ class LocationControllerTest extends TestCase
 
         $location = Location::factory()->for($trip)->create();
 
-        $response = $this->getJson(route('api.locations.retrieve', $location->id));
+        $response = $this->getJson(route('api.locations.view', $location->id));
 
         $response->assertForbidden();
     }
@@ -73,7 +73,7 @@ class LocationControllerTest extends TestCase
 
         $location = Location::factory()->for($trip)->create();
 
-        $response = $this->getJson(route('api.locations.retrieve', $location->id));
+        $response = $this->getJson(route('api.locations.view', $location->id));
 
         $response->assertOk();
 
@@ -101,7 +101,7 @@ class LocationControllerTest extends TestCase
             'location_id' => $location->id,
         ]);
 
-        $response = $this->getJson(route('api.locations.retrieve', $location->id));
+        $response = $this->getJson(route('api.locations.view', $location->id));
 
         $response->assertOk();
 

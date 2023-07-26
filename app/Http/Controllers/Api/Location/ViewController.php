@@ -8,7 +8,7 @@ use App\Domain\Locations\Models\Location;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LocationResource;
 
-final class LocationController extends Controller
+final class ViewController extends Controller
 {
     public function __invoke(Location $location): LocationResource
     {

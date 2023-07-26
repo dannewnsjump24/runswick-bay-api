@@ -8,7 +8,7 @@ use App\Domain\Trips\Models\Trip;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TripResource;
 
-final class RetrieveTripController extends Controller
+final class ViewController extends Controller
 {
     public function __invoke(Trip $trip): TripResource
     {
