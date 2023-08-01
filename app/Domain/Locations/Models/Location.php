@@ -33,7 +33,7 @@ class Location extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Domain\Trips\Models\Trip, \App\Domain\Locations\Models\Location>
+     * @return BelongsTo<\App\Domain\Trips\Models\Trip, \App\Domain\Locations\Models\Location>
      */
     public function trip(): BelongsTo
     {
@@ -41,7 +41,7 @@ class Location extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Domain\Locations\Models\LocationImage>
+     * @return HasMany<\App\Domain\Locations\Models\LocationImage>
      */
     public function images(): HasMany
     {
