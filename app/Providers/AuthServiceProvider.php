@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 use App\Domain\Locations\Models\Location;
 use App\Domain\Trips\Models\Trip;
 use App\Policies\LocationPolicy;
