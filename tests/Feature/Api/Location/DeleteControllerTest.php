@@ -86,4 +86,23 @@ class DeleteControllerTest extends TestCase
 
         $this->deleteJson(route('api.locations.delete', $location->id))->assertNoContent();
     }
+
+    #[Test]
+    public function it_cant_delete_a_location_for_a_trip_thats_deleted_but_location_isnt(): void
+    {
+        $user = User::factory()->create();
+
+        $trip = Trip::factory()->create(
+            [
+                'owner_id' => $user->id,
+                'deleted_at' => now()->subHour(),
+            ]
+        );
+
+        $location = Location::factory()->for($trip)->create();
+
+        Sanctum::actingAs($user);
+
+        $this->deleteJson(route('api.locations.delete', $location->id))->assertForbidden();
+    }
 }
