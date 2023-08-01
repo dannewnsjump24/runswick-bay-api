@@ -19,4 +19,12 @@ class LocationPolicy
 
         return $user->id === $trip->owner_id;
     }
+
+    public function destroy(User $user, Location $location): bool
+    {
+        /** @var \App\Domain\Trips\Models\Trip $trip */
+        $trip = $location->trip;
+
+        return $user->id === $trip->owner_id;
+    }
 }

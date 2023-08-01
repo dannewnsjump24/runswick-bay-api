@@ -6,7 +6,6 @@ namespace Tests\Feature\Api\Trips;
 
 use App\Domain\Trips\Models\Trip;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
@@ -15,8 +14,6 @@ use Tests\TestCase;
 #[Group("Trips")]
 class DeleteControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     #[Test]
     public function it_doesnt_delete_a_trip_when_not_authenticated(): void
     {
