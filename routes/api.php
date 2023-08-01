@@ -11,7 +11,7 @@ use App\Http\Controllers\Api\PingController;
 use App\Http\Controllers\Api\Trips\DeleteController;
 use App\Http\Controllers\Api\Trips\IndexController;
 use App\Http\Controllers\Api\Trips\StoreController;
-use App\Http\Controllers\Api\Trips\ViewController as ViewTripeController;
+use App\Http\Controllers\Api\Trips\ViewController as ViewTripController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +45,6 @@ Route::middleware('auth:sanctum')
     ->name('api.trips.')->group(function (): void {
         Route::post('/', StoreController::class)->name('store');
         Route::get('/', IndexController::class)->name('index');
-        Route::get('/{trip}', ViewTripeController::class)->name('view')->middleware('can:view,trip');
+        Route::get('/{trip}', ViewTripController::class)->name('view')->middleware('can:view,trip');
         Route::delete('/{trip}', DeleteController::class)->name('delete')->middleware('can:delete,trip');
     });
