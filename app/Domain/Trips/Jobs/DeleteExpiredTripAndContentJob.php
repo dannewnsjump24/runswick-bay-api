@@ -34,6 +34,8 @@ class DeleteExpiredTripAndContentJob implements ShouldQueue
     protected function deleteAllLocationAndImages(): void
     {
         $this->trip->locations->each(function (Location $location) {
+            //@todo Add in image deletion for location
+            $location->forceDelete();
         });
     }
 }
