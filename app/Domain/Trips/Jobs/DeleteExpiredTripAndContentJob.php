@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Trips\Jobs;
 
+use App\Domain\Locations\Models\Location;
 use App\Domain\Trips\Models\Trip;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -25,7 +26,14 @@ class DeleteExpiredTripAndContentJob implements ShouldQueue
 
     public function handle(): void
     {
+        $this->deleteAllLocationAndImages();
         //@todo build this up over time so when things are built up like locations, images etc we will need to delete them
         $this->trip->forceDelete();
+    }
+
+    protected function deleteAllLocationAndImages(): void
+    {
+        $this->trip->locations->each(function (Location $location) {
+        });
     }
 }
