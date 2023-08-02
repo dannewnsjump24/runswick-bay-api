@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Trips\Jobs;
 
+use App\Domain\Locations\Models\Location;
 use App\Domain\Trips\Console\DeleteExpiredTripsAndRelatedContentCommand;
 use App\Domain\Trips\Models\Trip;
 use PHPUnit\Framework\Attributes\Group;
@@ -31,7 +32,7 @@ class DeleteExpiredTripAndContentJobTest extends TestCase
     }
 
     #[Test]
-    public function it_doesnt_delete_a_trip_that_is_marked_as_deleted_but_is_less_than_the_alloted_days(): void
+    public function it_doesnt_delete_a_trip_that_is_marked_as_deleted_but_is_less_than_the_allotted_days(): void
     {
         $trip = Trip::factory()->create(
             [
@@ -66,6 +67,37 @@ class DeleteExpiredTripAndContentJobTest extends TestCase
             Trip::class,
             [
                 'id' => $trip->id,
+            ]
+        );
+    }
+
+    #[Test]
+    public function it_does_delete_locations_that_are_part_of_a_trip_being_deleted(): void
+    {
+        $trip = Trip::factory()->create(
+            [
+                'deleted_at' => now()->subDays(31),
+            ]
+        );
+
+        $location = Location::factory()->for($trip)->create();
+
+        $this->artisan(DeleteExpiredTripsAndRelatedContentCommand::class, [
+            'dayToGoBack' => 30,
+        ]);
+
+        $this->assertDatabaseMissing(
+            Trip::class,
+            [
+                'id' => $trip->id,
+            ]
+        );
+
+        $this->assertDatabaseMissing(
+            Location::class,
+            [
+                'id' => $location->id,
+                'trip_id' => $trip->id,
             ]
         );
     }

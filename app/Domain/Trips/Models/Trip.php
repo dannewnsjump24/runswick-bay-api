@@ -36,13 +36,16 @@ class Trip extends Model
     ];
 
     /**
-     * @phpstan-return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\User, \App\Domain\Trips\Models\Trip>
+     * @phpstan-return BelongsTo<\App\Models\User, \App\Domain\Trips\Models\Trip>
      */
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_id', 'id');
     }
 
+    /**
+     * @phpstan-return HasMany<\App\Domain\Locations\Models\Location>
+     */
     public function locations(): HasMany
     {
         return $this->hasMany(Location::class, 'trip_id');
