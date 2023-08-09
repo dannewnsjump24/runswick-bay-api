@@ -26,7 +26,11 @@ class DeleteControllerTest extends TestCase
     #[Test]
     public function it_cannot_delete_a_location_for_a_location_that_doesnt_exist(): void
     {
-        $this->deleteJson(route('api.locations.delete', 'asdadsa'))->assertUnauthorized();
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $this->deleteJson(route('api.locations.delete', 'asdadsa'))->assertNotFound();
     }
 
     #[Test]
