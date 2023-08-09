@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\Location\DeleteController as DeleteLocationController;
 use App\Http\Controllers\Api\Location\StoreController as StoreLocationController;
 use App\Http\Controllers\Api\Location\ViewController;
 use App\Http\Controllers\Api\Locations\AllController;
@@ -38,6 +39,7 @@ Route::middleware('auth:sanctum')
         Route::get('/', AllController::class)->name('list-all');
         Route::post('/', StoreLocationController::class)->name('store');
         Route::get('/{location}', ViewController::class)->name('view')->middleware('can:view,location');
+        Route::delete('/{location}', DeleteLocationController::class)->name('delete')->middleware('can:destroy,location');
     });
 
 Route::middleware('auth:sanctum')
