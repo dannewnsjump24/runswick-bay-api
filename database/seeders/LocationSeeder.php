@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\Location;
+use App\Domain\Locations\Models\Location;
 use Illuminate\Database\Seeder;
 
 class LocationSeeder extends Seeder

@@ -18,7 +18,7 @@ final class UserRegistrationException extends Exception
     {
         return response()->json(
             [
-                'error' => 'There was an error registering the user with the provided details',
+                'message' => 'There was an error registering the user with the provided details',
             ],
             Response::HTTP_BAD_REQUEST,
         );

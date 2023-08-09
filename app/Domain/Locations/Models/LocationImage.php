@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Domain\Locations\Models;
 
+use Database\Factories\LocationImageFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,4 +22,9 @@ class LocationImage extends Model
         'name',
         'path',
     ];
+
+    protected static function newFactory(): LocationImageFactory
+    {
+        return LocationImageFactory::new();
+    }
 }

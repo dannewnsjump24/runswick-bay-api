@@ -15,7 +15,7 @@ class ImageStoreException extends Exception
     {
         return new JsonResponse(
             [
-                'error' => 'There was an error storing the image.',
+                'message' => 'There was an error storing the image.',
             ],
             Response::HTTP_BAD_REQUEST,
         );

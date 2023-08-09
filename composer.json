@@ -14,14 +14,14 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "league/flysystem-path-prefixing": "^3.0",
         "predis/predis": "^1.1",
-        "thecodingmachine/safe": "^2.5"
+        "thecodingmachine/safe": "^2.5",
+        "tpetry/laravel-query-expressions": "^0.5.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",
         "brianium/paratest": "^7.1",
         "fakerphp/faker": "^1.9.1",
         "jumptwentyfour/laravel-coding-standards": "^2.2",
-        "laravel/pint": "^1.0",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
         "php-parallel-lint/php-parallel-lint": "^1.0",

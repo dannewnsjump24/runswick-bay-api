@@ -29,4 +29,11 @@ class TripFactory extends Factory
             'updated_at' => Carbon::now(),
         ];
     }
+
+    public function deleted(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'deleted_at' => now()->subSecond(),
+        ]);
+    }
 }

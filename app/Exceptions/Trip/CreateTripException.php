@@ -15,7 +15,7 @@ class CreateTripException extends Exception
     {
         return new JsonResponse(
             [
-                'error' => 'There was an error creating the trip.',
+                'message' => 'There was an error creating the trip.',
             ],
             Response::HTTP_BAD_REQUEST,
         );
