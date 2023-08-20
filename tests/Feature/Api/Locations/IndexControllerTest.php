@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 #[Group("Locations")]
-class AllControllerTest extends TestCase
+class IndexControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
