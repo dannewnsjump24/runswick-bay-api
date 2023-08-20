@@ -7,7 +7,6 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Location\DeleteController as DeleteLocationController;
 use App\Http\Controllers\Api\Location\StoreController as StoreLocationController;
 use App\Http\Controllers\Api\Location\ViewController;
-use App\Http\Controllers\Api\Locations\IndexController;
 use App\Http\Controllers\Api\PingController;
 use App\Http\Controllers\Api\Trips\DeleteController;
 use App\Http\Controllers\Api\Trips\IndexController;

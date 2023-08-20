@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Api\Locations;
 
+use App\Domain\Locations\Models\Location;
+use App\Domain\Trips\Models\Trip;
 use App\Models\User;
-use Database\Seeders\LocationSeeder;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\Response;
 use Laravel\Sanctum\Sanctum;
@@ -29,15 +30,21 @@ class IndexControllerTest extends TestCase
     #[Test]
     public function all_locations_are_returned_when_user_is_logged_in(): void
     {
-        Sanctum::actingAs(User::factory()->create());
+        $user = User::factory()->create();
 
-        $this->seed(LocationSeeder::class);
+        Sanctum::actingAs($user);
+
+        $location = Location::factory()
+            ->for(Trip::factory()->create([
+                'owner_id' => $user->id
+            ]))
+            ->create();
 
         $response = $this->getJson('/api/locations');
 
         $response->assertStatus(Response::HTTP_OK);
 
-        $response->assertJsonCount(5, 'data');
+        $response->assertJsonCount(1, 'data');
     }
 
     #[Test]
