@@ -7,6 +7,7 @@ namespace Tests\Feature\Api\Locations;
 use App\Domain\Locations\Models\Location;
 use App\Domain\Trips\Models\Trip;
 use App\Models\User;
+use Database\Seeders\LocationSeeder;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\Response;
 use Laravel\Sanctum\Sanctum;
@@ -39,6 +40,8 @@ class IndexControllerTest extends TestCase
                 'owner_id' => $user->id
             ]))
             ->create();
+
+        $this->seeder(LocationSeeder::class);
 
         $response = $this->getJson('/api/locations');
 
