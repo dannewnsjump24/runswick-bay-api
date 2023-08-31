@@ -45,7 +45,7 @@ class UserResource extends Resource
             ->filters([
                 Tables\Filters\Filter::make('admin_users')
                     ->query(fn (Builder $query): Builder => $query->whereRelation('roles', 'name', '=', 'Admin'))
-                    ->label('Admin Users')
+                    ->label('Admin Users'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

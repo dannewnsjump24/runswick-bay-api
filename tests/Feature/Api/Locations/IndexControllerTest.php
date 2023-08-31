@@ -37,7 +37,7 @@ class IndexControllerTest extends TestCase
 
         $location = Location::factory()
             ->for(Trip::factory()->create([
-                'owner_id' => $user->id
+                'owner_id' => $user->id,
             ]))
             ->create();
 

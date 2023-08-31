@@ -12,4 +12,4 @@ declare(strict_types=1);
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', fn() => redirect('/api/ping'));
+Route::get('/', fn () => redirect('/api/ping'));
