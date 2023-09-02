@@ -8,6 +8,7 @@ use App\Domain\Locations\Models\Location;
 use App\Filament\Resources\LocationResource\Pages;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -30,6 +31,10 @@ class LocationResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('trip.name')->label('Trip')->weight(FontWeight::Bold),
+                Tables\Columns\TextColumn::make('name')->weight(FontWeight::Bold),
+                Tables\Columns\TextColumn::make('longitude')->date('Y-m-d'),
+                Tables\Columns\TextColumn::make('latitude')->date('Y-m-d'),
             ])
             ->filters([
 
