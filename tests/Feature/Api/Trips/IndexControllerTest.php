@@ -133,7 +133,7 @@ class IndexControllerTest extends TestCase
                     "current_page" => 1,
                     "from" => 1,
                     "last_page" => 2,
-                    "path" => "http://localhost/api/trips",
+                    "path" => "https://localhost/api/trips",
                     "per_page" => 15,
                     "to" => 15,
                     "total" => 25,

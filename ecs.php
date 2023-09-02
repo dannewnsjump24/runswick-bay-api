@@ -32,6 +32,9 @@ return static function (ECSConfig $ecsConfig): void {
         'Unused parameter $e.' => [
             __DIR__.'/app/Exceptions/Handler.php',
         ],
+        'Unused parameter $panel.' => [
+            __DIR__.'/app/Models/User.php',
+        ],
         CamelCapsFunctionNameSniff::class => [
             '/tests/**',
         ],

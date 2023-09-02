@@ -15,7 +15,7 @@ final class IndexController extends Controller
     public function __invoke(): AnonymousResourceCollection
     {
         $locations = Location::query()
-            ->whereHas('trips', function(Builder $query)  {
+            ->whereHas('trip', function (Builder $query) {
                 $query->where('ownder_id', '=', (int)auth()->id());
             })
             ->paginate();
