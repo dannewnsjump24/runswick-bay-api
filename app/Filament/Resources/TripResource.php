@@ -53,7 +53,7 @@ class TripResource extends Resource
                 Tables\Columns\TextColumn::make('start_date')->date('Y-m-d'),
                 Tables\Columns\TextColumn::make('end_date')->date('Y-m-d'),
                 Tables\Columns\TextColumn::make('owner.name'),
-                Tables\Columns\TextColumn::make('locations_count')->counts('locations')->name('Locations'),
+                Tables\Columns\TextColumn::make('locations_count')->counts('locations')->label('Locations'),
             ])
             ->filters([
             ])
