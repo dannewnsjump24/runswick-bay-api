@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Domain\Locations\Models\Location;
-use App\Domain\Trips\Models\Trip;
 use App\Filament\Resources\LocationResource\Pages;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -46,7 +45,7 @@ class LocationResource extends Resource
                 Tables\Columns\TextColumn::make('trip.name')
                     ->label('Trip')
                     ->weight(FontWeight::Bold)
-                    ->url(fn (Model $record): string => route('filament.admin.resources.trips.edit', $record->trip_id)),
+                    ->url(fn (Location $record): string => route('filament.admin.resources.trips.edit', $record->trip_id)),
                 Tables\Columns\TextColumn::make('name')->weight(FontWeight::Bold),
                 Tables\Columns\TextColumn::make('longitude'),
                 Tables\Columns\TextColumn::make('latitude'),

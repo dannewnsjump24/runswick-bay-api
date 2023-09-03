@@ -57,7 +57,9 @@ class TripResource extends Resource
                 Tables\Columns\TextColumn::make('locations_count')
                     ->counts('locations')
                     ->label('Locations')
-                    ->url(fn (Model $record): string => route('filament.admin.resources.locations.index', ['tableFilters[trip][values][0]' => $record->id])),
+                    ->url(fn (Trip $record): string => route('filament.admin.resources.locations.index', [
+                        'tableFilters[trip][values][0]' => $record->id
+                    ])),
             ])
             ->filters([
             ])
