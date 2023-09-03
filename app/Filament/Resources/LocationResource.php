@@ -56,6 +56,12 @@ class LocationResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
+            ->filters([
+                Tables\Filters\SelectFilter::make('trip')
+                    ->multiple()
+                    ->relationship('trip', 'name')
+                    ->preload(),
+            ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

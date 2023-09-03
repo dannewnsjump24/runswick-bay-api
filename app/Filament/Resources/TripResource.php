@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class TripResource extends Resource
 {
@@ -53,7 +54,10 @@ class TripResource extends Resource
                 Tables\Columns\TextColumn::make('start_date')->date('Y-m-d'),
                 Tables\Columns\TextColumn::make('end_date')->date('Y-m-d'),
                 Tables\Columns\TextColumn::make('owner.name'),
-                Tables\Columns\TextColumn::make('locations_count')->counts('locations')->label('Locations'),
+                Tables\Columns\TextColumn::make('locations_count')
+                    ->counts('locations')
+                    ->label('Locations')
+                    ->url(fn (Model $record): string => route('filament.admin.resources.locations.index', ['tableFilters[trip][values][0]' => $record->id])),
             ])
             ->filters([
             ])
