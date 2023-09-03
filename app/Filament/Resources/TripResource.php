@@ -12,7 +12,6 @@ use Filament\Resources\Resource;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
 
 class TripResource extends Resource
 {
@@ -58,7 +57,7 @@ class TripResource extends Resource
                     ->counts('locations')
                     ->label('Locations')
                     ->url(fn (Trip $record): string => route('filament.admin.resources.locations.index', [
-                        'tableFilters[trip][values][0]' => $record->id
+                        'tableFilters[trip][values][0]' => $record->id,
                     ])),
             ])
             ->filters([
