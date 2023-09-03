@@ -61,6 +61,10 @@ class TripResource extends Resource
                     ])),
             ])
             ->filters([
+                Tables\Filters\SelectFilter::make('owner')
+                    ->multiple()
+                    ->relationship('ownercom', 'name')
+                    ->preload(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
