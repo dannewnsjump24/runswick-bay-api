@@ -63,7 +63,7 @@ class TripResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('owner')
                     ->multiple()
-                    ->relationship('ownercom', 'name')
+                    ->relationship('owner', 'name')
                     ->preload(),
             ])
             ->actions([
