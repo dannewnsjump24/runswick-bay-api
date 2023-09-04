@@ -25,7 +25,7 @@ class AdminUserSeeder extends Seeder
                     'email' => $value,
                 ], [
                     'email' => ['email'],
-                ])->fails() => 'The email must be a valid email',
+                ])->fails() => 'The email must be a valid email.',
                 Validator::make([
                     'email' => $value,
                 ], [
