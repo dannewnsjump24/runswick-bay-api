@@ -24,7 +24,7 @@ class TripResourceTest extends TestCase
         $trip = $trips->first();
 
         Location::factory()->create([
-            'trip_id' => $trip->id
+            'trip_id' => $trip->id,
         ]);
 
         Livewire::test(ListTrips::class)
@@ -38,5 +38,4 @@ class TripResourceTest extends TestCase
 //            ->assertTableColumnFormattedStateSet('Locations', collect([$location]), $trip->fresh())
             ->assertCanSeeTableRecords($trips);
     }
-
 }
