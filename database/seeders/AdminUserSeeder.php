@@ -21,8 +21,16 @@ class AdminUserSeeder extends Seeder
         $email = text(
             label: 'What is your email?',
             validate: fn (string $value) => match (true) {
-                Validator::make(['email' => $value], ['email' => ['email']])->fails() => 'The email must be a valid email',
-                Validator::make(['email' => $value], ['email' => ['unique:users,email']])->fails() => 'The email must not already exist.',
+                Validator::make([
+                    'email' => $value,
+                ], [
+                    'email' => ['email'],
+                ])->fails() => 'The email must be a valid email',
+                Validator::make([
+                    'email' => $value,
+                ], [
+                    'email' => ['unique:users,email'],
+                ])->fails() => 'The email must not already exist.',
                 default => null
             }
         );
