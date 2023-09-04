@@ -18,8 +18,8 @@ class DeleteUnusedTripCoverImagesCommand extends Command
     {
         $currentTripCoverImages = Trip::query()->pluck('cover_photo')->toArray();
 
-        collect(Storage::disk(config()->get('filesystems.disks.s3-trip-covers'))->allFiles())
-            ->reject(fn (string $file) => in_array($file, $currentTripCoverImages))
-            ->each(fn ($file) => Storage::disk(config()->get('filesystems.default')->delete($file)));
+        collect(Storage::disk(config()->get('filament.trip_cover_images_filesystem'))->allFiles())
+            ->reject(fn (string $file) => in_array($file, $currentTripCoverImages, true))
+            ->each(fn ($file) => Storage::disk(config()->get('filament.trip_cover_images_filesystem')->delete($file)));
     }
 }

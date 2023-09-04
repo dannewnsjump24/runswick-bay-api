@@ -38,7 +38,8 @@ class TripResource extends Resource
                     ->required()
                     ->maxDate(now()->addYear()),
                 Forms\Components\FileUpload::make('cover_photo')
-                    ->disk('s3-trip-covers')
+                    ->disk(config()->get('filament.trip_cover_images_filesystem'))
+                    ->preserveFilenames()
                     ->visibility('private')
                     ->imageResizeMode('cover')
                     ->imageCropAspectRatio('16:9')
