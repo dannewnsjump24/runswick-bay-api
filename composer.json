@@ -20,6 +20,7 @@
         "tpetry/laravel-query-expressions": "^0.5.1"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.9",
         "barryvdh/laravel-ide-helper": "^2.13",
         "brianium/paratest": "^7.1",
         "fakerphp/faker": "^1.9.1",
