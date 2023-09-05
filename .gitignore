@@ -70,3 +70,4 @@ phpunit.xml
 docker/php/local/supervisord/pid/supervisord.pid
 docker/php/local/supervisord/logs/horizon.log
 /.phpunit.cache
+storage/debugbar
