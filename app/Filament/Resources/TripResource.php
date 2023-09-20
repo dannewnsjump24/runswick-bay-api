@@ -38,6 +38,9 @@ class TripResource extends Resource
                     ->required()
                     ->maxDate(now()->addYear()),
                 Forms\Components\FileUpload::make('cover_photo')
+                    ->disk(config()->get('filament.trip_cover_images_filesystem'))
+                    ->preserveFilenames()
+                    ->visibility('private')
                     ->imageResizeMode('cover')
                     ->imageCropAspectRatio('16:9')
                     ->imageResizeTargetWidth('1920')
@@ -53,9 +56,18 @@ class TripResource extends Resource
                 Tables\Columns\TextColumn::make('start_date')->date('Y-m-d'),
                 Tables\Columns\TextColumn::make('end_date')->date('Y-m-d'),
                 Tables\Columns\TextColumn::make('owner.name'),
-                Tables\Columns\TextColumn::make('locations_count')->counts('locations')->name('Locations'),
+                Tables\Columns\TextColumn::make('locations_count')
+                    ->counts('locations')
+                    ->label('Locations')
+                    ->url(fn (Trip $record): string => route('filament.admin.resources.locations.index', [
+                        'tableFilters[trip][values][0]' => $record->id,
+                    ])),
             ])
             ->filters([
+                Tables\Filters\SelectFilter::make('owner')
+                    ->multiple()
+                    ->relationship('owner', 'name')
+                    ->preload(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

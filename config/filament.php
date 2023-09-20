@@ -38,5 +38,6 @@ return [
     */
 
     'default_filesystem_disk' => env('FILAMENT_FILESYSTEM_DISK', 'public'),
-
+    'trip_cover_images_filesystem' => env('TRIP_COVER_FILESYSTEM'),
+    'location_images_filesystem' => env('LOCATION_IMAGES_FILESYSTEM'),
 ];

@@ -74,7 +74,7 @@ services:
 
   horizon:
     container_name: wandersnap_horizon
-    image: runswick-horizon
+    image: wandersnap-horizon
     build:
       context: ./docker/php
     working_dir: /var/www/vhost/
