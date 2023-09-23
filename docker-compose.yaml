@@ -1,5 +1,5 @@
 # https://docs.docker.com/compose/compose-file/#/versioning
-version: '3.8'
+version: "3.8"
 
 services:
   nginx:
@@ -12,8 +12,8 @@ services:
       - ./:/var/www/vhost/:cached
     working_dir: /var/www/vhost/
     ports:
-      - '80:80'
-      - '443:443'
+      - "80:80"
+      - "443:443"
     networks:
       - wandersnap_network
 
@@ -22,13 +22,13 @@ services:
     container_name: wandersnap_php
     build: ./docker/php
     environment:
-      PHP_MEMORY_LIMIT: '128M'
-      COMPOSER_MEMORY_LIMIT: '-1'
+      PHP_MEMORY_LIMIT: "128M"
+      COMPOSER_MEMORY_LIMIT: "-1"
     volumes:
       - ./:/var/www/vhost/:cached
     working_dir: /var/www/vhost/
     ports:
-      - '9000:9000'
+      - "9000:9000"
     networks:
       - wandersnap_network
 
@@ -40,11 +40,11 @@ services:
       - ./docker/mysql/data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: 'wandersnap_api'
-      MYSQL_USER: 'wandersnap_api'
-      MYSQL_PASSWORD: 'wandersnap_api'
-      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "wandersnap_api"
+      MYSQL_USER: "wandersnap_api"
+      MYSQL_PASSWORD: "wandersnap_api"
+      MYSQL_ROOT_HOST: "%"
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     networks:
       - wandersnap_network
@@ -58,14 +58,12 @@ services:
       - "6379:6379"
     volumes:
       - ./redis/data:/data
-    restart: always
     networks:
       - wandersnap_network
 
   mailpit:
     image: axllent/mailpit
     container_name: wandersnap_mailpit
-    platform: linux/amd64
     networks:
       - wandersnap_network
     ports:
@@ -82,10 +80,10 @@ services:
     networks:
       - wandersnap_network
     environment:
-      PHP_MEMORY_LIMIT: '128M'
-      COMPOSER_MEMORY_LIMIT: '-1'
-      QUEUE_CONNECTION: 'redis'
-      REDIS_HOST: 'redis'
+      PHP_MEMORY_LIMIT: "128M"
+      COMPOSER_MEMORY_LIMIT: "-1"
+      QUEUE_CONNECTION: "redis"
+      REDIS_HOST: "redis"
     depends_on:
       - redis
     volumes:
@@ -94,7 +92,18 @@ services:
       - ./docker/php/local/supervisord/logs:/etc/supervisor/logs
       - ./docker/php/local/supervisord/pid:/etc/supervisor/pid
       - ./docker/php/local/supervisord/logs/horizon_worker.log:/var/www/vhost/dannewns.co.uk/storage/logs/horizon_worker.log
-    command: [ "/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/horizon.conf", "-u", "www-data", "-l", "/etc/supervisor/logs/supervisord.log", "-j", "/etc/supervisor/pid/supervisord.pid" ]
+    command:
+      [
+        "/usr/bin/supervisord",
+        "-c",
+        "/etc/supervisor/conf.d/horizon.conf",
+        "-u",
+        "www-data",
+        "-l",
+        "/etc/supervisor/logs/supervisord.log",
+        "-j",
+        "/etc/supervisor/pid/supervisord.pid",
+      ]
 
 volumes:
   wandersnap_network-mysql-data-volume:
