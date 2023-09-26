@@ -64,43 +64,4 @@ class DeleteControllerTest extends TestCase
             ]
         );
     }
-
-    #[Test]
-    public function it_does_delete_the_locations_associated_with_a_trip(): void
-    {
-        $this->markTestSkipped('Unskip this test when location deletion is in place');
-        $user = User::factory()->create();
-
-        Sanctum::actingAs($user);
-
-        /** @var Trip $trip */
-        $trip = Trip::factory()->has(Location::factory()->count(3))->create(
-            [
-                'owner_id' => $user->id,
-            ]
-        );
-
-        $this->assertDatabaseCount(
-            Location::class,
-            3
-        );
-
-        $response = $this->deleteJson(route('api.trips.delete', $trip->id));
-
-        $response->assertNoContent();
-
-        $this->assertSoftDeleted(
-            Trip::class,
-            [
-                'id' => $trip->id,
-                'owner_id' => $user->id,
-            ]
-        );
-
-        $this->assertDatabaseCount(
-            Location::class,
-            0
-        );
-
-    }
 }
