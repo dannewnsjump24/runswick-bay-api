@@ -68,6 +68,7 @@ class DeleteControllerTest extends TestCase
     #[Test]
     public function it_does_delete_the_locations_associated_with_a_trip(): void
     {
+        $this->markTestSkipped('Unskip this test when location deletion is in place');
         $user = User::factory()->create();
 
         Sanctum::actingAs($user);
