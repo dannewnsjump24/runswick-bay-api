@@ -25,6 +25,7 @@ class DeleteExpiredTripAndContentJob implements ShouldQueue
 
     public function __construct(protected Trip $trip)
     {
+        //@todo add this to a default queue here
         $this->deleteImageAction = app(DeleteImageAction::class);
     }
 
