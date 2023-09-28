@@ -32,8 +32,10 @@ class DeleteExpiredTripAndContentJob implements ShouldQueue
     {
         $this->deleteAllLocationAndImages();
 
-        $this->deleteImageAction->execute($this->trip->cover_photo, config('filesystems.default'));
-
+        if ($this->trip->cover_photo) {
+            $this->deleteImageAction->execute($this->trip->cover_photo, config('filesystems.default'));
+        }
+        
         $this->trip->forceDelete();
     }
 
@@ -41,6 +43,10 @@ class DeleteExpiredTripAndContentJob implements ShouldQueue
     {
         $this->trip->locations->each(function (Location $location) {
             $location->images->each(function (LocationImage $image) {
+                if (!$image->path) {
+                    return;
+                }
+
                 $this->deleteImageAction->execute($image->path, config('filesystems.default'));
             });
 

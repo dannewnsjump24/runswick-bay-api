@@ -165,10 +165,10 @@ class DeleteExpiredTripAndContentJobTest extends TestCase
         $location = Location::factory()
             ->for($trip)
             ->has(LocationImage::factory()->state([
-                'path' => 'tester-location/file-a.jpg'
+                'path' => 'tester-location/file-a.jpg',
             ]), 'images')
             ->has(LocationImage::factory()->state([
-                'path' => 'tester-location/file-b.jpg'
+                'path' => 'tester-location/file-b.jpg',
             ]), 'images')
             ->create();
 
