@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace App\Domain\Images\Actions;
 
-use App\Exceptions\Image\DeleteImageException;
 use Illuminate\Support\Facades\Storage;
 
 class DeleteImageAction
 {
-    /**
-     * @throws \App\Exceptions\Image\DeleteImageException
-     */
-    public function execute(string $file): bool
+    public function execute(string $file, string $disk): void
     {
-        throw_if(Storage::missing($file), DeleteImageException::class);
-
-        return Storage::delete($file);
+        if (Storage::disk($disk)->missing($file)) {
+            return;
+        }
+ 
+        Storage::disk($disk)->delete($file);
     }
 }
