@@ -31,7 +31,6 @@ class DeleteExpiredTripAndContentJob implements ShouldQueue
     public function handle(): void
     {
         $this->deleteAllLocationAndImages();
-        //@todo build this up over time so when things are built up like locations, images etc we will need to delete them
 
         $this->deleteImageAction->execute($this->trip->cover_photo, config('filesystems.default'));
 
