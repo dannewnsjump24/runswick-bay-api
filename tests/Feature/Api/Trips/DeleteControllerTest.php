@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Api\Trips;
 
-use App\Domain\Locations\Models\Location;
 use App\Domain\Trips\Models\Trip;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;

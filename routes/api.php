@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Location\DeleteController as DeleteLocationController;
 use App\Http\Controllers\Api\Location\StoreController as StoreLocationController;
 use App\Http\Controllers\Api\Location\ViewController;
+use App\Http\Controllers\Api\Locations\IndexController as IndexLocationController;
 use App\Http\Controllers\Api\PingController;
 use App\Http\Controllers\Api\Trips\DeleteController;
 use App\Http\Controllers\Api\Trips\IndexController;
@@ -35,7 +36,7 @@ Route::prefix('auth')->name('api.auth.')->group(function (): void {
 Route::middleware('auth:sanctum')
     ->prefix('locations')
     ->name('api.locations.')->group(function (): void {
-        Route::get('/', IndexController::class)->name('list-all');
+        Route::get('/', IndexLocationController::class)->name('list-all');
         Route::post('/', StoreLocationController::class)->name('store');
         Route::get('/{location}', ViewController::class)->name('view')->middleware('can:view,location');
         Route::delete('/{location}', DeleteLocationController::class)->name('delete')->middleware('can:destroy,location');
