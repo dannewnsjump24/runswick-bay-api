@@ -40,6 +40,7 @@ class LocationResource extends Resource
                     ->relationship()
                     ->simple(
                         FileUpload::make('path')
+                            ->disk(config()->get('filament.location_images_filesystem'))
                             ->validationAttribute('image')
                             ->preserveFilenames()
                             ->visibility('private')
