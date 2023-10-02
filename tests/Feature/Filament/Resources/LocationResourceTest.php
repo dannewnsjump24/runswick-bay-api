@@ -28,7 +28,12 @@ class LocationResourceTest extends TestCase
                 'images' => [
                     '0' => [
                         'path' => [
-                            'location/location-image.jpg',
+                            'location/location-image-1.jpg',
+                        ],
+                    ],
+                    '1' => [
+                        'path' => [
+                            'location/location-image-2.jpg',
                         ],
                     ],
                 ],
@@ -44,8 +49,13 @@ class LocationResourceTest extends TestCase
         ]);
 
         $this->assertDatabaseHas(LocationImage::class, [
-            'path' => 'location/location-image.jpg',
-            'name' => 'location-image.jpg',
+            'path' => 'location/location-image-1.jpg',
+            'name' => 'location-image-1.jpg',
+        ]);
+
+        $this->assertDatabaseHas(LocationImage::class, [
+            'path' => 'location/location-image-2.jpg',
+            'name' => 'location-image-2.jpg',
         ]);
     }
 }
