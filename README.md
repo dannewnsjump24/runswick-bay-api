@@ -32,7 +32,7 @@ You can connect to the MySQL database with the following credentials:
 
 ```
 Host: 127.0.0.1
-Port: 33061
+Port: 4406
 Username: root
 Password: root
 ```
