@@ -41,6 +41,8 @@ class ResizeImageAction
     {
         $pathParts = pathinfo($fileName);
 
+        $pathParts['dirname'] = $pathParts['dirname'] ?? '';
+
         if ($pathParts['dirname'] === '.' || $pathParts['dirname'] === '/') {
             $pathParts['dirname'] = '';
         }

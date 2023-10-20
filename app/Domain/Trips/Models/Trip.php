@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Storage;
 
 use function Illuminate\Events\queueable;
 
@@ -41,22 +40,26 @@ class Trip extends Model
 
     protected static function booted(): void
     {
-        static::created(queueable(function (Trip $trip) {
-            if ($trip->cover_photo) {
-                app(ResizeImageAction::class)->execute(
-                    $trip->cover_photo,
-                    config('filament.trip_cover_images_filesystem')
-                );
+        static::created(queueable(function (self $trip) {
+            if (!$trip->cover_photo) {
+                return;
             }
+
+            app(ResizeImageAction::class)->execute(
+                $trip->cover_photo,
+                config('filament.trip_cover_images_filesystem')
+            );
         }));
 
-        static::updated(queueable(function (Trip $trip) {
-            if (array_key_exists('cover_photo', $trip->getChanges())) {
-                app(ResizeImageAction::class)->execute(
-                    $trip->cover_photo,
-                    config('filament.trip_cover_images_filesystem')
-                );
+        static::updated(queueable(function (self $trip) {
+            if (!array_key_exists('cover_photo', $trip->getChanges())) {
+                return;
             }
+
+            app(ResizeImageAction::class)->execute(
+                $trip->cover_photo,
+                config('filament.trip_cover_images_filesystem')
+            );
         }));
     }
 

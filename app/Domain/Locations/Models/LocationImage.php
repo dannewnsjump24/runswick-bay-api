@@ -28,22 +28,26 @@ class LocationImage extends Model
 
     protected static function booted(): void
     {
-        static::created(queueable(function (LocationImage $image) {
-            if ($image->path) {
-                app(ResizeImageAction::class)->execute(
-                    $image->path,
-                    config('filament.location_images_filesystem')
-                );
+        static::created(queueable(function (self $image) {
+            if (!$image->path) {
+                return;
             }
+
+            app(ResizeImageAction::class)->execute(
+                $image->path,
+                config('filament.location_images_filesystem')
+            );
         }));
     
-        static::updated(queueable(function (LocationImage $image) {
-            if (array_key_exists('path', $image->getChanges())) {
-                app(ResizeImageAction::class)->execute(
-                    $image->path,
-                    config('filament.location_images_filesystem')
-                );
+        static::updated(queueable(function (self $image) {
+            if (!array_key_exists('path', $image->getChanges())) {
+                return;
             }
+
+            app(ResizeImageAction::class)->execute(
+                $image->path,
+                config('filament.location_images_filesystem')
+            );
         }));
     }
 
