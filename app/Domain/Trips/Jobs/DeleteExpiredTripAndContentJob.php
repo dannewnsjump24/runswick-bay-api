@@ -44,7 +44,7 @@ class DeleteExpiredTripAndContentJob implements ShouldQueue
     {
         $this->trip->locations->each(function (Location $location) {
             $location->images->each(function (LocationImage $image) {
-                if (! $image->path) {
+                if (!$image->path) {
                     return;
                 }
 

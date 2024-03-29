@@ -21,7 +21,7 @@ class LocationImageFactory extends Factory
     {
         $filepath = storage_path('images');
 
-        if (! File::exists($filepath)) {
+        if (!File::exists($filepath)) {
             File::makeDirectory($filepath);
         }
 

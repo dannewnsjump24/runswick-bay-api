@@ -29,7 +29,7 @@ class StoreTripCoverPhotoActionTest extends TestCase
 
         $filename = '123.jpg';
 
-        $expectedResult = $location.'/'.$filename;
+        $expectedResult = $location . '/' . $filename;
 
         $result = $action->execute($uploadedFile, $location, $filename);
 
@@ -56,7 +56,7 @@ class StoreTripCoverPhotoActionTest extends TestCase
 
         $filename = '123.jpg';
 
-        $expectedResult = $location.'/'.$filename;
+        $expectedResult = $location . '/' . $filename;
 
         $result = $action->execute($uploadedFile, $location, $filename);
 

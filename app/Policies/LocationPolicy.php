@@ -18,7 +18,7 @@ class LocationPolicy
         /** @var \App\Domain\Trips\Models\Trip $trip */
         $trip = $location->trip;
 
-        if (! $trip instanceof Trip) {
+        if (!$trip instanceof Trip) {
             return false;
         }
 
@@ -30,7 +30,7 @@ class LocationPolicy
         /** @var \App\Domain\Trips\Models\Trip $trip */
         $trip = $location->trip;
 
-        if (! $trip instanceof Trip) {
+        if (!$trip instanceof Trip) {
             return false;
         }
 

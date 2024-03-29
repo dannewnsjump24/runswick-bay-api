@@ -16,7 +16,7 @@ final class IndexController extends Controller
     {
         $locations = Location::query()
             ->whereHas('trip', function (Builder $query) {
-                $query->where('owner_id', '=', (int) auth()->id());
+                $query->where('owner_id', '=', (int)auth()->id());
             })
             ->paginate();
 

@@ -110,7 +110,7 @@ class StoreControllerTest extends TestCase
 
         $newFileName = "{$trip['id']}/cover_image/";
 
-        $coverPhotoFileName = $newFileName."{$trip['id']}_cover_photo.{$file->getClientOriginalExtension()}";
+        $coverPhotoFileName = $newFileName . "{$trip['id']}_cover_photo.{$file->getClientOriginalExtension()}";
 
         $this->assertDatabaseHas(
             Trip::class,
