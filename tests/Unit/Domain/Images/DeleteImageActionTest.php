@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-#[Group("Images")]
+#[Group('Images')]
 class DeleteImageActionTest extends TestCase
 {
     #[Test]
@@ -20,7 +20,7 @@ class DeleteImageActionTest extends TestCase
         Storage::fake('local');
 
         $file = UploadedFile::fake()->create('hello.jpg');
-        
+
         Storage::putFileAs('tester-location', $file, 'hello.jpg');
 
         $action = app()->make(DeleteImageAction::class);

@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\RequestFactories\RegisterUserRequestFactory;
 use Tests\TestCase;
 
-#[Group("Authentication")]
+#[Group('Authentication')]
 final class RegisterControllerTest extends TestCase
 {
     use RefreshDatabase;

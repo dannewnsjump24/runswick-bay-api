@@ -2,7 +2,6 @@
 
 use JumpTwentyFour\PhpCodingStandards\Support\ConfigHelper;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\CamelCapsFunctionNameSniff;
-use SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 

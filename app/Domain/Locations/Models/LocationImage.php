@@ -12,9 +12,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LocationImage extends Model
 {
-    use SoftDeletes;
     use HasFactory;
     use HasUlids;
+    use SoftDeletes;
 
     protected $fillable = [
         'id',
