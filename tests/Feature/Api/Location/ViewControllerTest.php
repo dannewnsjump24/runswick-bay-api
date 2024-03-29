@@ -13,7 +13,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-#[Group("Locations")]
+#[Group('Locations')]
 class ViewControllerTest extends TestCase
 {
     #[Test]

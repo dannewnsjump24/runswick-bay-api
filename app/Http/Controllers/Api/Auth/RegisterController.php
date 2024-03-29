@@ -20,13 +20,13 @@ final class RegisterController extends Controller
     {
         $user = $registerUserAction->execute($request->validated());
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             throw new UserRegistrationException();
         }
 
         $token = $user->createToken($request->string('device_name')->toString());
 
-        if (!$token instanceof NewAccessToken) {
+        if (! $token instanceof NewAccessToken) {
             throw new TokenGenerationException();
         }
 

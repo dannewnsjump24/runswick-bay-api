@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domain\Locations\Models\Location>
+ *
  * @mixin \App\Domain\Locations\Models\Location
  */
 class LocationFactory extends Factory

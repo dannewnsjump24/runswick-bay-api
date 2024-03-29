@@ -13,7 +13,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-#[Group("Images")]
+#[Group('Images')]
 class StoreTripCoverPhotoActionTest extends TestCase
 {
     #[Test]
@@ -29,7 +29,7 @@ class StoreTripCoverPhotoActionTest extends TestCase
 
         $filename = '123.jpg';
 
-        $expectedResult = $location . '/' . $filename;
+        $expectedResult = $location.'/'.$filename;
 
         $result = $action->execute($uploadedFile, $location, $filename);
 
@@ -56,7 +56,7 @@ class StoreTripCoverPhotoActionTest extends TestCase
 
         $filename = '123.jpg';
 
-        $expectedResult = $location . '/' . $filename;
+        $expectedResult = $location.'/'.$filename;
 
         $result = $action->execute($uploadedFile, $location, $filename);
 

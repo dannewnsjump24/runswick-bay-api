@@ -15,7 +15,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-#[Group("Trips")]
+#[Group('Trips')]
 class StoreControllerTest extends TestCase
 {
     use RefreshDatabase;
@@ -110,7 +110,7 @@ class StoreControllerTest extends TestCase
 
         $newFileName = "{$trip['id']}/cover_image/";
 
-        $coverPhotoFileName = $newFileName . "{$trip['id']}_cover_photo.{$file->getClientOriginalExtension()}";
+        $coverPhotoFileName = $newFileName."{$trip['id']}_cover_photo.{$file->getClientOriginalExtension()}";
 
         $this->assertDatabaseHas(
             Trip::class,

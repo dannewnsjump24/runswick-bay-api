@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Location extends Model
 {
-    use SoftDeletes;
     use HasFactory;
     use HasUlids;
+    use SoftDeletes;
 
     protected $fillable = [
         'id',

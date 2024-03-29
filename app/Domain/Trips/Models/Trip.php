@@ -17,9 +17,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Trip extends Model
 {
-    use SoftDeletes;
     use HasFactory;
     use HasUlids;
+    use SoftDeletes;
 
     protected $fillable = [
         'id',
@@ -57,7 +57,7 @@ class Trip extends Model
     }
 
     /**
-     * @param  array<int, \App\Domain\Trips\Models\Trip> $models
+     * @param  array<int, \App\Domain\Trips\Models\Trip>  $models
      * @return \App\Domain\Trips\Collections\TripCollection<int, \App\Domain\Trips\Models\Trip>
      */
     public function newCollection(array $models = []): TripCollection

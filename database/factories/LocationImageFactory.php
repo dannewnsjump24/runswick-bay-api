@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Domain\Locations\Models\LocationImage>
+ *
  * @mixin \App\Domain\Locations\Models\LocationImage
  */
 class LocationImageFactory extends Factory
@@ -20,7 +21,7 @@ class LocationImageFactory extends Factory
     {
         $filepath = storage_path('images');
 
-        if (!File::exists($filepath)) {
+        if (! File::exists($filepath)) {
             File::makeDirectory($filepath);
         }
 

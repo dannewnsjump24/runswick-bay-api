@@ -13,7 +13,7 @@ final class IndexController extends Controller
 {
     public function __invoke(): AnonymousResourceCollection
     {
-        $trips = Trip::query()->where('owner_id', '=', (int)auth()->id())->paginate();
+        $trips = Trip::query()->where('owner_id', '=', (int) auth()->id())->paginate();
 
         return TripResource::collection($trips);
     }

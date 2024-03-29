@@ -16,7 +16,7 @@ class DeleteExpiredTripsAndRelatedContentCommand extends Command
 
     public function handle(): void
     {
-        $daysInThePast = (int)$this->argument('dayToGoBack');
+        $daysInThePast = (int) $this->argument('dayToGoBack');
 
         $trips = Trip::query()->withTrashed()
             ->where('deleted_at', '<=', now()->subDays($daysInThePast))

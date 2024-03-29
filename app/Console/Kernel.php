@@ -23,6 +23,6 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__ . '/../Domain/Trips/Console');
+        $this->load(__DIR__.'/../Domain/Trips/Console');
     }
 }

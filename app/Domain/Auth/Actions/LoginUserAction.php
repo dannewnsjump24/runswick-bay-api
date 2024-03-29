@@ -23,11 +23,11 @@ class LoginUserAction
     {
         $user = $this->user->query()->where('email', '=', $email)->first();
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             throw new UserNotFoundException();
         }
 
-        if (!Hash::check($password, $user->password)) {
+        if (! Hash::check($password, $user->password)) {
             throw ValidationException::withMessages(
                 [
                     'email' => ['The provided credentials are incorrect.'],
