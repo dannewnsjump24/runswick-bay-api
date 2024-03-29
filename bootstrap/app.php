@@ -19,7 +19,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo(AppServiceProvider::HOME);
 
         $middleware->throttleApi();
-    })
+    })->withCommands([
+        __DIR__.'/../app/Domain/Trips/Console',
+    ])
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
