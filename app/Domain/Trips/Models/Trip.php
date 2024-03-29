@@ -30,10 +30,13 @@ class Trip extends Model
         'cover_photo',
     ];
 
-    protected $casts = [
-        'start_date' => 'datetime',
-        'end_date' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'start_date' => 'datetime',
+            'end_date' => 'datetime',
+        ];
+    }
 
     /**
      * @phpstan-return BelongsTo<\App\Models\User, \App\Domain\Trips\Models\Trip>
