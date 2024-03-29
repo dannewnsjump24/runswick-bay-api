@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Location extends Model
 {
-    use SoftDeletes;
     use HasFactory;
     use HasUlids;
+    use SoftDeletes;
 
     protected $fillable = [
         'id',
@@ -27,10 +27,13 @@ class Location extends Model
         'longitude',
     ];
 
-    protected $casts = [
-        'latitude' => 'float',
-        'longitude' => 'float',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'latitude' => 'float',
+            'longitude' => 'float',
+        ];
+    }
 
     /**
      * @return BelongsTo<\App\Domain\Trips\Models\Trip, \App\Domain\Locations\Models\Location>

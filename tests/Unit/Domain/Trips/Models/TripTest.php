@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-#[Group("Models")]
+#[Group('Models')]
 final class TripTest extends TestCase
 {
     #[Test]

@@ -3,7 +3,6 @@ version: "3.8"
 
 services:
   nginx:
-    # https://hub.docker.com/_/nginx
     container_name: wandersnap_nginx
     build: ./docker/nginx
     depends_on:
@@ -18,8 +17,8 @@ services:
       - wandersnap_network
 
   php:
-    # https://hub.docker.com/_/php
     container_name: wandersnap_php
+    user: "www-data:www-data"
     build: ./docker/php
     environment:
       PHP_MEMORY_LIMIT: "128M"
@@ -33,7 +32,6 @@ services:
       - wandersnap_network
 
   mysql:
-    # https://hub.docker.com/r/mysql/mysql-server/
     container_name: wandersnap_mysql
     image: mysql/mysql-server:latest
     volumes:

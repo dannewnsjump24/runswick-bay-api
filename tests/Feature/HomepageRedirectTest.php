@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-#[Group("Redirect")]
+#[Group('Redirect')]
 class HomepageRedirectTest extends TestCase
 {
     #[Test]

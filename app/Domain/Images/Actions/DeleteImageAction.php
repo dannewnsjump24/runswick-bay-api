@@ -13,7 +13,7 @@ class DeleteImageAction
         if (Storage::disk($disk)->missing($file)) {
             return;
         }
- 
+
         Storage::disk($disk)->delete($file);
     }
 }

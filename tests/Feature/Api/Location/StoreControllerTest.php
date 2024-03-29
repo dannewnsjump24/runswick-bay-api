@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-#[Group("Locations")]
+#[Group('Locations')]
 class StoreControllerTest extends TestCase
 {
     use WithFaker;
@@ -136,9 +136,9 @@ class StoreControllerTest extends TestCase
         $response = $this->postJson(route('api.locations.store'), $locationData);
 
         $response->assertCreated()
-        ->assertJson(function (AssertableJson $json) use ($locationData) {
-            $json->has('data.trip_id')->where('data.trip_id', $locationData['trip_id']);
-        });
+            ->assertJson(function (AssertableJson $json) use ($locationData) {
+                $json->has('data.trip_id')->where('data.trip_id', $locationData['trip_id']);
+            });
 
         $this->assertDatabaseHas(
             Location::class,

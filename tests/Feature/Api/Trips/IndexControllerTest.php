@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-#[Group("Trips")]
+#[Group('Trips')]
 class IndexControllerTest extends TestCase
 {
     #[Test]
@@ -130,13 +130,13 @@ class IndexControllerTest extends TestCase
         $response->assertJson(
             [
                 'meta' => [
-                    "current_page" => 1,
-                    "from" => 1,
-                    "last_page" => 2,
-                    "path" => "https://localhost/api/trips",
-                    "per_page" => 15,
-                    "to" => 15,
-                    "total" => 25,
+                    'current_page' => 1,
+                    'from' => 1,
+                    'last_page' => 2,
+                    'path' => 'https://localhost/api/trips',
+                    'per_page' => 15,
+                    'to' => 15,
+                    'total' => 25,
                 ],
             ]
         );
