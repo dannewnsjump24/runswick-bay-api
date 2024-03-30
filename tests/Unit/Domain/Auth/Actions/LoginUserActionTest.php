@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-#[Group("Authentication")]
+#[Group('Authentication')]
 class LoginUserActionTest extends TestCase
 {
     use WithFaker;

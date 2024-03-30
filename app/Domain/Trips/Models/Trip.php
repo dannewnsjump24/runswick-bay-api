@@ -20,9 +20,9 @@ use function Illuminate\Events\queueable;
 
 class Trip extends Model
 {
-    use SoftDeletes;
     use HasFactory;
     use HasUlids;
+    use SoftDeletes;
 
     protected $fillable = [
         'id',
@@ -33,10 +33,13 @@ class Trip extends Model
         'cover_photo',
     ];
 
-    protected $casts = [
-        'start_date' => 'datetime',
-        'end_date' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'start_date' => 'datetime',
+            'end_date' => 'datetime',
+        ];
+    }
 
     protected static function booted(): void
     {
@@ -85,7 +88,7 @@ class Trip extends Model
     }
 
     /**
-     * @param  array<int, \App\Domain\Trips\Models\Trip> $models
+     * @param  array<int, \App\Domain\Trips\Models\Trip>  $models
      * @return \App\Domain\Trips\Collections\TripCollection<int, \App\Domain\Trips\Models\Trip>
      */
     public function newCollection(array $models = []): TripCollection

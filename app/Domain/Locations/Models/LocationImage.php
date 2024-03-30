@@ -15,9 +15,9 @@ use function Illuminate\Events\queueable;
 
 class LocationImage extends Model
 {
-    use SoftDeletes;
     use HasFactory;
     use HasUlids;
+    use SoftDeletes;
 
     protected $fillable = [
         'id',

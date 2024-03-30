@@ -24,6 +24,7 @@ class StoreRequest extends FormRequest
                 Rule::exists(Trip::class, 'id')->where(function (Builder $query) {
                     /** @var \App\Models\User $user */
                     $user = $this->user();
+
                     return $query->where('owner_id', '=', $user->id);
                 }),
             ],

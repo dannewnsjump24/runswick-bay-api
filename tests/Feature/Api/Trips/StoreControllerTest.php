@@ -15,7 +15,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-#[Group("Trips")]
+#[Group('Trips')]
 class StoreControllerTest extends TestCase
 {
     use RefreshDatabase;

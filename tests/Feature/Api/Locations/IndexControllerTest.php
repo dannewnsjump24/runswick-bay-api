@@ -15,7 +15,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-#[Group("Locations")]
+#[Group('Locations')]
 class IndexControllerTest extends TestCase
 {
     use DatabaseMigrations;
@@ -48,6 +48,28 @@ class IndexControllerTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
 
         $response->assertJsonCount(1, 'data');
+
+        $response->assertJsonPath('data.0.name', $location->name);
+    }
+
+    #[Test]
+    public function only_owned_locations_are_returned(): void
+    {
+        $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
+        $location = Location::factory()
+            ->for(Trip::factory()->create())
+            ->create();
+
+        $this->seeder(LocationSeeder::class);
+
+        $response = $this->getJson('/api/locations');
+
+        $response->assertStatus(Response::HTTP_OK);
+
+        $response->assertJsonCount(0, 'data');
     }
 
     #[Test]
