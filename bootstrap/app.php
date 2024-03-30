@@ -17,8 +17,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectGuestsTo(fn () => route('login'));
         $middleware->redirectUsersTo(AppServiceProvider::HOME);
-
-        $middleware->throttleApi();
     })->withCommands([
         __DIR__.'/../app/Domain/Trips/Console',
     ])
