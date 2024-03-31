@@ -89,7 +89,7 @@ class StoreControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_creates_a_report_with_an_image(): void
+    public function it_creates_a_trip_with_an_image(): void
     {
         $user = User::factory()->create();
 

@@ -43,27 +43,27 @@ class Trip extends Model
 
     protected static function booted(): void
     {
-        static::created(queueable(function (self $trip) {
-            if (!$trip->cover_photo) {
-                return;
-            }
+//        static::created(queueable(function (self $trip) {
+//            if (!$trip->cover_photo) {
+//                return;
+//            }
+//
+//            app(ResizeImageAction::class)->execute(
+//                $trip->cover_photo,
+//                config('filament.trip_cover_images_filesystem')
+//            );
+//        }));
 
-            app(ResizeImageAction::class)->execute(
-                $trip->cover_photo,
-                config('filament.trip_cover_images_filesystem')
-            );
-        }));
-
-        static::updated(queueable(function (self $trip) {
-            if (!array_key_exists('cover_photo', $trip->getChanges())) {
-                return;
-            }
-
-            app(ResizeImageAction::class)->execute(
-                $trip->cover_photo, // @phpstan-ignore-line
-                config('filament.trip_cover_images_filesystem')
-            );
-        }));
+//        static::updated(queueable(function (self $trip) {
+//            if (!array_key_exists('cover_photo', $trip->getChanges())) {
+//                return;
+//            }
+//
+//            app(ResizeImageAction::class)->execute(
+//                $trip->cover_photo, // @phpstan-ignore-line
+//                config('filament.trip_cover_images_filesystem')
+//            );
+//        }));
     }
 
     /**
