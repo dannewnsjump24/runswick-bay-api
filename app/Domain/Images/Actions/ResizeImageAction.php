@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Images\Actions;
 
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Exception\NotReadableException;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ResizeImageAction
@@ -24,16 +25,20 @@ class ResizeImageAction
         $imageContents = Storage::disk($disk)->get($fileName);
 
         foreach (self::SIZES as $size) {
-            $image = Image::make($imageContents);
+            try {
+                $image = Image::make($imageContents);
 
-            $image->resize($size, $size, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
+                $image->resize($size, $size, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
 
-            $test = Storage::disk($disk)->put($this->resizedFileName($fileName, $size), $image->stream());
+                $test = Storage::disk($disk)->put($this->resizedFileName($fileName, $size), $image->stream());
 
-            $image->destroy();
+                $image->destroy();
+            } catch (NotReadableException) {
+                continue;
+            }
         }
     }
 
