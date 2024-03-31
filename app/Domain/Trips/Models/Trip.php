@@ -60,7 +60,7 @@ class Trip extends Model
             }
 
             app(ResizeImageAction::class)->execute(
-                $trip->cover_photo,
+                $trip->cover_photo, // @phpstan-ignore-line
                 config('filament.trip_cover_images_filesystem')
             );
         }));

@@ -51,6 +51,6 @@ class ResizeImageAction
             $pathParts['dirname'] .= '/';
         }
 
-        return $pathParts['dirname'] . $pathParts['filename'] . '-' . $size . '.' . $pathParts['extension'];
+        return $pathParts['dirname'] . $pathParts['filename'] . '-' . $size . (isset($pathParts['extension']) ? '.' . $pathParts['extension'] : '');
     }
 }
