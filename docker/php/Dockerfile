@@ -1,6 +1,6 @@
 # Offical Docker Image for PHP
 # https://hub.docker.com/_/php
-FROM php:8.2-fpm
+FROM php:8.3-fpm
 
 # Set Current Directory
 WORKDIR /var/www/vhost/
