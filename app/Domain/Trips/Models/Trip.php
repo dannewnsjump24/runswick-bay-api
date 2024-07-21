@@ -15,8 +15,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Location> $locations
+ * @property-read int|null $locations_count
+ * @property-read User|null $owner
+ * @method static TripCollection<int, static> all($columns = ['*'])
+ * @method static \Database\Factories\TripFactory factory($count = null, $state = [])
+ * @method static TripCollection<int, static> get($columns = ['*'])
+ * @method static \Illuminate\Database\Eloquent\Builder|Trip newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Trip newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Trip onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Trip query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Trip withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Trip withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Trip extends Model
 {
+    /** @use HasFactory<TripFactory> */
     use HasFactory;
     use HasUlids;
     use SoftDeletes;

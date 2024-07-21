@@ -35,7 +35,6 @@ class TripResourceTest extends TestCase
             ->assertCanRenderTableColumn('locations_count')
             ->assertTableColumnFormattedStateSet('start_date', '2023-06-20', $trip)
             ->assertTableColumnFormattedStateSet('end_date', '2023-06-27', $trip)
-//            ->assertTableColumnFormattedStateSet('Locations', collect([$location]), $trip->fresh())
             ->assertCanSeeTableRecords($trips);
     }
 }
